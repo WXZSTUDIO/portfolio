@@ -3,133 +3,181 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PAGE_X MVP SHOWDOWN Card News</title>
+    <title>PAGE_X MVP SHOWDOWN - Gallery</title>
     <style>
+        :root {
+            --fb-blue: #1877F2;
+            --bg-gray: #f0f2f5;
+        }
+
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f0f2f5;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background-color: var(--bg-gray);
+            margin: 0;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            margin: 0;
         }
 
-        /* Facebook 风格卡片容器 */
-        .card-news-container {
-            width: 100%;
+        /* 卡片容器 */
+        .card-container {
+            width: 90%;
             max-width: 600px;
             background: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
             overflow: hidden;
         }
 
-        .card-header {
-            padding: 12px 16px;
+        /* 头部文字 [cite: 1, 11] */
+        .card-info {
+            padding: 15px;
         }
+        .card-info h2 { margin: 0; font-size: 1.2rem; }
+        .card-info p { margin: 5px 0 0; color: #65676b; font-size: 0.9rem; }
 
-        .card-header h2 {
-            margin: 0;
-            font-size: 1.1rem;
-            color: #1c1e21;
-        }
-
-        .card-header p {
-            margin: 4px 0 0;
-            font-size: 0.9rem;
-            color: #65676b;
-        }
-
-        /* 图片网格布局 */
-        .image-grid {
-            display: grid;
-            grid-template-columns: 2fr 1fr; /* 左大右小 */
-            grid-template-rows: 1fr 1fr;
-            gap: 2px; /* Facebook 风格的细缝 */
-            background-color: #ddd;
-            aspect-ratio: 16 / 9;
-        }
-
-        .grid-item {
-            position: relative;
+        /* 主图区域: 3:2 比例  */
+        .main-stage {
+            width: 100%;
+            aspect-ratio: 3 / 2;
             overflow: hidden;
             background: #000;
+            cursor: pointer;
+            position: relative;
         }
 
-        .grid-item img {
+        /* 悬停放大效果 (Hover Effect) */
+        .main-stage img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.3s ease;
+            transition: transform 0.5s ease;
+        }
+        .main-stage:hover img {
+            transform: scale(1.1);
+        }
+
+        /* 遮罩层/弹窗 (Lightbox) */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        .lightbox.active { display: flex; }
+
+        .lightbox-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 80%;
+        }
+        .lightbox-content img {
+            max-width: 100%;
+            max-height: 100vh;
+            border-radius: 4px;
+        }
+
+        /* 左右切换箭头 */
+        .nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: none;
+            padding: 15px;
+            cursor: pointer;
+            font-size: 24px;
+            border-radius: 50%;
+            transition: background 0.3s;
+        }
+        .nav-btn:hover { background: rgba(255,255,255,0.4); }
+        .prev { left: -70px; }
+        .next { right: -70px; }
+
+        .close-btn {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            color: white;
+            font-size: 30px;
             cursor: pointer;
         }
 
-        .grid-item img:hover {
-            transform: scale(1.05);
-            opacity: 0.9;
-        }
-
-        /* 第一张大图占据左侧全部 */
-        .item-1 {
-            grid-row: 1 / span 2;
-            grid-column: 1 / span 1;
-        }
-
-        .card-footer {
-            padding: 12px 16px;
-            background-color: #fff;
-            border-top: 1px solid #ebedf0;
-        }
-
-        .cta-button {
-            display: block;
-            width: 100%;
-            padding: 8px;
-            background-color: #e4e6eb;
-            color: #050505;
-            text-align: center;
-            text-decoration: none;
-            border-radius: 6px;
-            font-weight: 600;
-            font-size: 0.9rem;
-        }
-
-        .cta-button:hover {
-            background-color: #d8dadf;
-        }
-
-        @media (max-width: 480px) {
-            .card-news-container {
-                border-radius: 0;
-            }
+        @media (max-width: 768px) {
+            .nav-btn { padding: 10px; font-size: 18px; }
+            .prev { left: 10px; }
+            .next { right: 10px; }
         }
     </style>
 </head>
 <body>
 
-<div class="card-news-container">
-    <div class="card-header">
-        <h2>PAGE_X MVP SHOWDOWN</h2>
-        <p>Make Your Bias the King! 👑 | 1.MAR 08:30 (KST)</p>
+<div class="card-container">
+    <div class="card-info">
+        <h2>PAGE_X MVP SHOWDOWN [cite: 11]</h2>
+        <p>Make Your Bias the King [cite: 12] | 1.MAR 08:30 (KST) [cite: 13]</p>
+    </div>
+    
+    <div class="main-stage" onclick="openLightbox(0)">
+        <img src="images/card-1.jpg" alt="PAGE_X MVP Showdown Cover">
     </div>
 
-    <div class="image-grid">
-        <div class="grid-item item-1">
-            <img src="path_to_your_image_1.jpg" alt="Thumbnail: PAGE_X MVP SHOWDOWN">
-        </div>
-        <div class="grid-item">
-            <img src="path_to_your_image_2.jpg" alt="Schedule: Opening to Grand Final">
-        </div>
-        <div class="grid-item">
-            <img src="path_to_your_image_3.jpg" alt="Rules: How the Scores Work">
-        </div>
-    </div>
-
-    <div class="card-footer">
-        <a href="https://vt.tiktok.com/ZSmX1Afh2/" class="cta-button" target="_blank">View More on TikTok</a>
+    <div style="padding: 15px; text-align: center; color: #65676b; font-size: 0.8rem;">
+        Click the image to see more details (Schedule & Rules)
     </div>
 </div>
+
+<div class="lightbox" id="lightbox">
+    <div class="lightbox-content">
+        <span class="close-btn" onclick="closeLightbox()">&times;</span>
+        <button class="nav-btn prev" onclick="changeImage(-1)">&#10094;</button>
+        <img id="lightbox-img" src="" alt="Gallery Image">
+        <button class="nav-btn next" onclick="changeImage(1)">&#10095;</button>
+    </div>
+</div>
+
+<script>
+    // 图片数组 
+    const images = [
+        'images/card-1.jpg', // 封面
+        'images/card-2.jpg', // 流程 [cite: 14, 17, 23, 26, 30, 34]
+        'images/card-3.jpg'  // 计分规则 [cite: 41, 42, 43, 44]
+    ];
+    
+    let currentIndex = 0;
+
+    function openLightbox(index) {
+        currentIndex = index;
+        updateLightbox();
+        document.getElementById('lightbox').classList.add('active');
+    }
+
+    function closeLightbox() {
+        document.getElementById('lightbox').classList.remove('active');
+    }
+
+    function changeImage(step) {
+        currentIndex += step;
+        if (currentIndex < 0) currentIndex = images.length - 1;
+        if (currentIndex >= images.length) currentIndex = 0;
+        updateLightbox();
+    }
+
+    function updateLightbox() {
+        document.getElementById('lightbox-img').src = images[currentIndex];
+    }
+
+    // 点击背景关闭
+    document.getElementById('lightbox').onclick = function(e) {
+        if (e.target.id === 'lightbox') closeLightbox();
+    }
+</script>
 
 </body>
 </html>
