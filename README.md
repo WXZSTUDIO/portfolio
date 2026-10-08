@@ -1,44 +1,26 @@
-PAGE_X MVP SHOWDOWN Card News Design
-외국인 팬들을 대상으로 PAGE_X MVP SHOWDOWN의 게임 구성과 진행 방식을 명확하게 설명하기 위해 제작된 카드뉴스 프로젝트입니다.
+# STUDIO (WXZ) — Photography Studio Official Site
 
-1. Project Overview
+黑白双 logo 的摄影工作室官网。设计语言参考 Apple iPhone 产品页：黑色舞台、巨幅 Raleway 字重对比、滚动驱动的视差与 sticky 缩放叙事，移动端同样保持完整动效。
 
-Purpose: 외국인 팬들의 이해를 돕기 위한 안내 콘텐츠 제작.
+## Structure
 
+```
+index.html          # 单文件站点（内联 CSS/JS，无 build）
+assets/logo/        # STUDIO (WXZ) 黑白 logo
+assets/img/         # AI 生成的摄影风格视觉素材（已裁水印、压缩）
+```
 
-Target: 글로벌 PAGE_X 팬덤.
+## Scroll Effects（原生 JS + rAF，无外部库）
 
+1. Hero 背景双层视差 + 文案上浮淡出
+2. Apple 标志性 sticky 缩放章节：小卡片随滚动放大至全屏
+3. 图文行反向视差（图片在遮罩内以不同速度位移）
+4. 垂直滚动驱动的横向作品画廊（sticky + translate3d）
+5. IntersectionObserver 入场 reveal、导航毛玻璃 scrim
+6. `prefers-reduced-motion` 全量降级为静态布局
 
-Core Concept: 팬들이 직접 자신의 최애를 왕으로 만드는 "Make Your Bias the King" 경쟁형 콘텐츠.
-+1
+## Typography
 
+Raleway（Google Fonts，200/700/800 字重对比）+ 系统中文回退。
 
-Event Date: 3월 1일 오전 8:30 (KST).
-
-2. Key Features
-
-Information Architecture: 복잡한 8단계의 진행 과정과 점수 산정 방식을 3장의 카드뉴스에 압축하여 전달.
-+2
-
-
-Visual Strategy: Facebook 스타일의 카드뉴스 레이아웃을 HTML/CSS로 구현하여 가독성과 접근성 극대화.
-
-Responsive Layout: 모바일 및 웹 환경 어디서든 최적화된 뷰를 제공하는 반응형 그리드 시스템 적용.
-
-3. Contents Structure 
-
-
-Thumbnail (Cover): 이벤트 타이틀 및 일시, 메인 슬로건 강조.
-
-
-Event Schedule: 오프닝부터 그랜드 파이널까지의 8단계 상세 일정 안내.
-+1
-
-
-Rules & Rewards: 누적 점수제 및 리셋 규칙 설명, 그리고 'Top Supporter'를 위한 영상통화 리워드 강조.
-+2
-
-4. Technical Stack
-Design: Adobe Suite (Photoshop/Illustrator) or AI Design Tools.
-
-Publishing: HTML5, CSS3 (Flexbox/Grid Layout).
+© STUDIO (WXZ)
