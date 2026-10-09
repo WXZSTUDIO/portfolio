@@ -46,48 +46,56 @@ button{font:inherit;cursor:pointer;background:none;border:none;color:inherit}
 .nav-ava img{width:100%;height:100%;object-fit:cover}
 @media(max-width:760px){.nav-links{display:none}.nav-ava{width:32px;height:32px}}
 
-/* ---------- billboard ---------- */
-.billboard{position:relative;height:min(88vh,860px);min-height:540px;overflow:hidden}
-.bb-slide{position:absolute;inset:0;opacity:0;transition:opacity 1.1s var(--ease);pointer-events:none}
-.bb-slide.active{opacity:1;pointer-events:auto}
-.bb-img{position:absolute;inset:0;will-change:transform}
-.bb-img img{width:100%;height:100%;object-fit:cover;object-position:center 20%}
-.billboard::after{content:"";position:absolute;inset:0;pointer-events:none;
-  background:linear-gradient(90deg,rgba(16,16,20,.96) 0%,rgba(16,16,20,.72) 34%,rgba(16,16,20,.1) 68%,rgba(16,16,20,.55) 100%),
-             linear-gradient(0deg,var(--bg) 0%,transparent 26%)}
-.bb-content{position:absolute;left:clamp(20px,6vw,90px);bottom:clamp(90px,14vh,150px);z-index:3;max-width:640px;will-change:transform,opacity}
+/* ---------- billboard · coverflow ---------- */
+.billboard{position:relative;padding:clamp(88px,12vh,118px) 0 26px;overflow:hidden}
+.cf-wrap{position:relative}
+.cf-stage{position:relative;z-index:2;height:clamp(300px,48vh,520px);perspective:1800px;transform-style:preserve-3d}
+.cf-item{position:absolute;left:50%;top:0;height:100%;width:min(56vw,900px);border-radius:16px;overflow:hidden;
+  cursor:pointer;transition:transform .85s var(--ease),filter .85s var(--ease),opacity .55s ease;
+  box-shadow:0 34px 80px rgba(0,0,0,.6);will-change:transform;backface-visibility:hidden}
+.cf-item img{width:100%;height:100%;object-fit:cover;object-position:center 22%;pointer-events:none}
+.cf-item::after{content:"";position:absolute;inset:0;transition:opacity .5s;
+  background:linear-gradient(0deg,rgba(10,10,14,.42),transparent 42%)}
+.cf-item.active::after{opacity:0}
+.cf-item.active{cursor:default}
+.bb-arrow{position:absolute;top:50%;transform:translateY(-50%);z-index:12;width:50px;height:50px;border-radius:50%;
+  background:rgba(22,22,28,.55);border:1px solid #ffffff22;display:grid;place-items:center;
+  transition:background .3s,transform .3s;opacity:.85}
+.bb-arrow:hover{background:rgba(32,32,42,.92);transform:translateY(-50%) scale(1.07)}
+.bb-arrow:focus-visible{opacity:1}
+.bb-arrow svg{width:20px;height:20px;stroke:#fff}
+.bb-arrow.prev{left:clamp(10px,3vw,42px)}
+.bb-arrow.next{right:clamp(10px,3vw,42px)}
+.cf-caption{position:relative;z-index:3;text-align:center;max-width:780px;margin:clamp(18px,3.2vh,30px) auto 0;padding:0 24px;
+  transition:opacity .26s ease,transform .26s ease}
+.cf-caption.swap{opacity:0;transform:translateY(10px)}
 .bb-brand{display:inline-flex;align-items:center;gap:10px;font-size:12px;font-weight:700;letter-spacing:.24em;
-  text-transform:uppercase;color:var(--red);margin-bottom:16px}
+  text-transform:uppercase;color:var(--red);margin-bottom:12px}
 .bb-brand::before{content:"";width:22px;height:2px;background:var(--red)}
-.bb-title{font-size:clamp(30px,4.8vw,64px);font-weight:800;line-height:1.1;letter-spacing:-.01em;text-wrap:balance;text-shadow:0 2px 28px rgba(0,0,0,.6)}
-.bb-meta{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:16px;font-size:14px;font-weight:700;color:#e3e3ec;text-shadow:0 1px 14px rgba(0,0,0,.7)}
+.bb-title{font-size:clamp(25px,4.2vw,52px);font-weight:800;line-height:1.12;letter-spacing:-.01em;text-wrap:balance}
+.bb-meta{display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;margin-top:12px;font-size:14px;font-weight:700;color:#cfcfda}
 .bb-meta .m-red{color:#ff4d57}
-.bb-desc{margin-top:14px;color:#c9c9d4;font-size:clamp(13px,1.3vw,16px);max-width:520px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
-.bb-cta{display:flex;gap:12px;margin-top:clamp(20px,3.5vh,32px);flex-wrap:wrap}
+.bb-desc{margin:12px auto 0;color:#c9c9d4;font-size:clamp(13px,1.3vw,16px);max-width:560px;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.bb-cta{display:flex;gap:12px;margin-top:clamp(14px,2.4vh,22px);justify-content:center;flex-wrap:wrap}
 .bb-play{display:inline-flex;align-items:center;gap:10px;background:#fff;color:#0d0d10;font-weight:700;font-size:15px;
   padding:13px 30px;border-radius:8px;transition:background .3s,transform .35s var(--ease)}
 .bb-play:hover{background:#d9d9e0;transform:translateY(-2px)}
 .bb-info{display:inline-flex;align-items:center;gap:10px;background:rgba(109,109,122,.42);color:#fff;font-weight:700;font-size:15px;
   padding:13px 30px;border-radius:8px;transition:background .3s,transform .35s var(--ease)}
 .bb-info:hover{background:rgba(109,109,122,.62);transform:translateY(-2px)}
-.bb-arrow{position:absolute;top:50%;transform:translateY(-50%);z-index:5;width:46px;height:76px;border-radius:10px;
-  background:rgba(20,20,26,.45);display:grid;place-items:center;transition:background .3s,opacity .3s;opacity:0}
-.billboard:hover .bb-arrow,.bb-arrow:focus-visible{opacity:1}
-.bb-arrow:hover{background:rgba(20,20,26,.8)}
-.bb-arrow svg{width:22px;height:22px;stroke:#fff}
-.bb-arrow.prev{left:14px}.bb-arrow.next{right:14px}
-.bb-dots{position:absolute;left:clamp(20px,6vw,90px);bottom:clamp(46px,7vh,70px);z-index:4;display:flex;gap:8px}
-.bb-dot{width:22px;height:3px;border-radius:2px;background:#ffffff38;transition:background .3s,width .3s}
+.bb-dots{position:relative;z-index:3;display:flex;gap:8px;justify-content:center;margin-top:clamp(16px,2.6vh,24px)}
+.bb-dot{width:22px;height:3px;border-radius:2px;background:#ffffff30;transition:background .3s,width .3s}
 .bb-dot.active{background:var(--red);width:34px}
 @media(max-width:760px){
-  .billboard{height:78svh;min-height:520px}
-  .billboard::after{background:linear-gradient(90deg,rgba(16,16,20,.92) 0%,rgba(16,16,20,.62) 55%,rgba(16,16,20,.34) 100%),
-    linear-gradient(0deg,var(--bg) 2%,rgba(16,16,20,.45) 30%,transparent 55%)}
-  .bb-content{left:20px;right:20px;bottom:84px;max-width:none}
-  .bb-desc{display:none}
+  .billboard{padding-top:80px}
+  .cf-stage{height:min(46vh,400px)}
+  .cf-item{width:82vw;border-radius:12px}
   .bb-arrow{display:none}
-  .bb-dots{left:20px;bottom:48px}
+  .bb-title{font-size:clamp(24px,7vw,34px)}
+  .bb-desc{display:none}
   .bb-play,.bb-info{padding:11px 22px;font-size:13px}
+  .cf-caption{padding:0 16px}
 }
 
 /* ---------- rows ---------- */
@@ -230,11 +238,14 @@ button{font:inherit;cursor:pointer;background:none;border:none;color:inherit}
   </div>
 </nav>
 
-<!-- ============ BILLBOARD ============ -->
+<!-- ============ BILLBOARD · COVERFLOW ============ -->
 <section class="billboard" id="top">
-  <div id="bbSlides"></div>
-  <button class="bb-arrow prev" id="bbPrev" aria-label="Previous work"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4"><path d="M15 5l-7 7 7 7"/></svg></button>
-  <button class="bb-arrow next" id="bbNext" aria-label="Next work"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4"><path d="M9 5l7 7-7 7"/></svg></button>
+  <div class="cf-wrap">
+    <div class="cf-stage" id="bbSlides"></div>
+    <button class="bb-arrow prev" id="bbPrev" aria-label="Previous work"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4"><path d="M15 5l-7 7 7 7"/></svg></button>
+    <button class="bb-arrow next" id="bbNext" aria-label="Next work"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4"><path d="M9 5l7 7-7 7"/></svg></button>
+  </div>
+  <div class="cf-caption" id="bbCaption"></div>
   <div class="bb-dots" id="bbDots"></div>
 </section>
 
@@ -360,42 +371,80 @@ var ROWS = [
 var fmt = function(n){return n>=1000 ? (n/1000).toFixed(1).replace(/\.0$/,"")+"k" : String(n)};
 var esc = function(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;")};
 
-/* ================= Billboard ================= */
+/* ================= Billboard · Coverflow ================= */
 var FEAT = WORKS.filter(function(w){return w.feat});
-var slidesEl = document.getElementById("bbSlides"), dotsEl = document.getElementById("bbDots");
-var bbIdx = 0, bbTimer;
+var slidesEl = document.getElementById("bbSlides"), dotsEl = document.getElementById("bbDots"), capEl = document.getElementById("bbCaption");
+var bbIdx = 0, bbTimer, items = [];
 FEAT.forEach(function(w,i){
   var d = document.createElement("div");
-  d.className = "bb-slide" + (i===0?" active":"");
-  d.innerHTML =
-    '<div class="bb-img"><img src="'+w.img+'" alt="'+esc(w.title)+'"'+(i===0?' fetchpriority="high"':' loading="lazy"')+'></div>'+
-    '<div class="bb-content">'+
-      '<span class="bb-brand">'+esc(w.brand||"STUDIO (WXZ)")+'</span>'+
-      '<h2 class="bb-title">'+esc(w.title)+'</h2>'+
-      '<div class="bb-meta"><span class="m-red">♥ '+fmt(w.likes)+'</span><span>🔖 '+fmt(w.saves)+'</span><span>'+esc(w.tag)+'</span></div>'+
-      (w.desc?'<p class="bb-desc">'+esc(w.desc)+'</p>':"")+
-      '<div class="bb-cta">'+
-        '<button class="bb-play" data-open="'+w.id+'">▶ &nbsp;View project</button>'+
-        '<a class="bb-info" href="#contact">✉ &nbsp;Contact</a>'+
-      '</div>'+
-    '</div>';
-  slidesEl.appendChild(d);
+  d.className = "cf-item";
+  d.innerHTML = '<img src="'+w.img+'" alt="'+esc(w.title)+'" decoding="async">';
+  d.addEventListener("click",function(){ if(i!==bbIdx) go(i,true); });
+  slidesEl.appendChild(d); items.push(d);
   var dot = document.createElement("button");
-  dot.className = "bb-dot"+(i===0?" active":"");
+  dot.className = "bb-dot";
   dot.setAttribute("aria-label","Featured "+(i+1));
   dot.addEventListener("click",function(){go(i,true)});
   dotsEl.appendChild(dot);
 });
+function capHTML(w){
+  return '<span class="bb-brand">'+esc(w.brand||"STUDIO (WXZ)")+'</span>'+
+    '<h2 class="bb-title">'+esc(w.title)+'</h2>'+
+    '<div class="bb-meta"><span class="m-red">♥ '+fmt(w.likes)+'</span><span>🔖 '+fmt(w.saves)+'</span><span>'+esc(w.tag)+'</span></div>'+
+    (w.desc?'<p class="bb-desc">'+esc(w.desc)+'</p>':"")+
+    '<div class="bb-cta">'+
+      '<button class="bb-play" data-open="'+w.id+'">▶ &nbsp;View project</button>'+
+      '<a class="bb-info" href="#contact">✉ &nbsp;Contact</a>'+
+    '</div>';
+}
+function layout(){
+  var N = FEAT.length;
+  for(var k=0;k<N;k++){
+    var o = (k-bbIdx+N)%N; if(o>N/2) o-=N;
+    var el = items[k], t, ao = Math.abs(o);
+    if(o===0)       t = "translateX(-50%) translateZ(70px)";
+    else if(o===1)  t = "translateX(-50%) translateX(64%) translateZ(-40px) rotateY(-42deg) scale(.8)";
+    else if(o===-1) t = "translateX(-50%) translateX(-64%) translateZ(-40px) rotateY(42deg) scale(.8)";
+    else if(o===2)  t = "translateX(-50%) translateX(104%) translateZ(-120px) rotateY(-42deg) scale(.66)";
+    else            t = "translateX(-50%) translateX(-104%) translateZ(-120px) rotateY(42deg) scale(.66)";
+    el.style.transform = t;
+    el.style.zIndex = o===0?10:(ao===1?5:2);
+    el.style.filter = o===0?"none":("brightness("+(ao===1?.5:.3)+")");
+    el.style.opacity = ao>2?0:1;
+    el.classList.toggle("active",o===0);
+    el.setAttribute("aria-hidden", o===0?"false":"true");
+  }
+  var dots = dotsEl.children;
+  for(var j=0;j<dots.length;j++) dots[j].classList.toggle("active",j===bbIdx);
+}
 function go(i,user){
-  var slides = slidesEl.children, dots = dotsEl.children;
   bbIdx = (i+FEAT.length)%FEAT.length;
-  for(var k=0;k<slides.length;k++){slides[k].classList.toggle("active",k===bbIdx);dots[k].classList.toggle("active",k===bbIdx);}
+  capEl.classList.add("swap");
+  setTimeout(function(){ capEl.innerHTML = capHTML(FEAT[bbIdx]); capEl.classList.remove("swap"); },260);
+  layout();
   if(user) restart();
 }
 function restart(){clearInterval(bbTimer);bbTimer=setInterval(function(){go(bbIdx+1)},6500)}
 document.getElementById("bbPrev").addEventListener("click",function(){go(bbIdx-1,true)});
 document.getElementById("bbNext").addEventListener("click",function(){go(bbIdx+1,true)});
+capEl.innerHTML = capHTML(FEAT[0]);
+layout();
 restart();
+/* touch swipe */
+var sx = null;
+slidesEl.addEventListener("touchstart",function(e){sx = e.touches[0].clientX},{passive:true});
+slidesEl.addEventListener("touchend",function(e){
+  if(sx===null) return;
+  var dx = e.changedTouches[0].clientX - sx;
+  if(Math.abs(dx)>44) go(bbIdx+(dx<0?1:-1),true);
+  sx = null;
+},{passive:true});
+/* keyboard arrows */
+document.addEventListener("keydown",function(e){
+  if(modal.classList.contains("open")) return;
+  if(e.key==="ArrowRight") go(bbIdx+1,true);
+  if(e.key==="ArrowLeft") go(bbIdx-1,true);
+});
 
 /* ================= Rows ================= */
 var rowsRoot = document.getElementById("works");
@@ -480,16 +529,6 @@ var cur = window.scrollY;
   cur += (window.scrollY - cur)*.14;
   if(Math.abs(cur-window.scrollY)<.05) cur = window.scrollY;
   nav.classList.toggle("solid", window.scrollY > 40);
-  var bb = document.querySelector(".billboard");
-  if(!reduce && cur < bb.offsetHeight){
-    var active = slidesEl.children[bbIdx];
-    if(active){
-      active.querySelector(".bb-img").style.transform = "translateY("+(cur*.22)+"px) scale("+(1+cur/bb.offsetHeight*.06)+")";
-      var c = active.querySelector(".bb-content");
-      c.style.transform = "translateY("+(cur*.3)+"px)";
-      c.style.opacity = String(Math.max(0,1-cur/(bb.offsetHeight*.6)));
-    }
-  }
   requestAnimationFrame(loop);
 })();
 
