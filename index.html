@@ -18,7 +18,7 @@
   --txt:#f5f5f7;
   --muted:#9b9ba7;
   --red:#e50914;
-  --font:"Raleway",-apple-system,"PingFang SC","Apple SD Gothic Neo","Noto Sans SC",sans-serif;
+  --font:"Raleway",-apple-system,"PingFang SC","Noto Sans SC",sans-serif;
   --ease:cubic-bezier(.22,1,.36,1);
 }
 *{margin:0;padding:0;box-sizing:border-box}
@@ -41,10 +41,7 @@ button{font:inherit;cursor:pointer;background:none;border:none;color:inherit}
 .nav-links{display:flex;gap:clamp(16px,2.4vw,30px);font-size:13px;font-weight:600;letter-spacing:.05em;color:var(--muted)}
 .nav-links a{transition:color .3s}
 .nav-links a:hover{color:#fff}
-.nav-ava{width:38px;height:38px;border-radius:10px;overflow:hidden;border:2px solid #ffffff2e;transition:border-color .3s,transform .3s}
-.nav-ava:hover{border-color:#ffffff70;transform:scale(1.05)}
-.nav-ava img{width:100%;height:100%;object-fit:cover}
-@media(max-width:760px){.nav-links{display:none}.nav-ava{width:32px;height:32px}}
+@media(max-width:760px){.nav-links{display:none}}
 
 /* ---------- billboard · coverflow ---------- */
 .billboard{position:relative;padding:clamp(88px,12vh,118px) 0 26px;overflow:hidden}
@@ -187,6 +184,8 @@ button{font:inherit;cursor:pointer;background:none;border:none;color:inherit}
 @keyframes pop{from{opacity:0;transform:translateY(36px) scale(.97)}to{opacity:1;transform:none}}
 .modal-media{position:relative;aspect-ratio:16/9;background:#000}
 .modal-media img,.modal-media video{width:100%;height:100%;object-fit:cover;display:block}
+.modal-media.vert{width:auto;height:min(72vh,760px);aspect-ratio:9/16;max-width:100%;margin:0 auto}
+.modal-media.vert img,.modal-media.vert video{object-fit:cover}
 .modal-media::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,#181820 0%,transparent 38%);pointer-events:none}
 .modal-close{position:absolute;top:14px;right:14px;z-index:3;width:38px;height:38px;border-radius:50%;
   background:rgba(16,16,20,.8);display:grid;place-items:center;transition:background .3s}
@@ -234,7 +233,6 @@ button{font:inherit;cursor:pointer;background:none;border:none;color:inherit}
       <a href="#studio">Studio</a>
       <a href="#contact">Contact</a>
     </div>
-    <a class="nav-ava" href="#studio" aria-label="About the photographer"><img src="assets/img/avatar.jpg" alt="Zheng Canfeng"></a>
   </div>
 </nav>
 
@@ -275,8 +273,9 @@ button{font:inherit;cursor:pointer;background:none;border:none;color:inherit}
   </div>
   <div class="studio-copy" data-reveal>
     <p class="eyebrow">The Studio · Seoul</p>
-    <h2 class="h2">郑灿峰 <em>정찬봉</em> — 摄影师 · 导演</h2>
-    <p>STUDIO (WXZ) 主理人。13 年跨境视觉经验，服务新世界免税店、爱茉莉太平洋、三养等品牌；自备全画幅电影机与灯光体系，从分镜到成片一个人把关。</p>
+    <h2 class="h2">郑灿峰 — 摄影师 · <em>导演</em></h2>
+    <p>有人拍下画面，有人创造记忆。十三年来，我只做一件事：让品牌被看见，被记住。</p>
+    <p>从新世界免税店到爱茉莉太平洋，从三养到 MAKE UP FOR EVER — 灯光、摄影、导演、后期，一个体系，全程把关。我们不追热点，我们创造让人停下来的那一帧。</p>
     <div class="gear"><span>Sony A7M4</span><span>G Master</span><span>Full Lighting</span><span>AI Workflow</span></div>
   </div>
 </section>
@@ -326,17 +325,17 @@ var IMG = function(n){return RAW + n + ".jpg"};
 
 /* ---- real works from WXZSTUDIO/homepage (cases.ts + FILM_META) ---- */
 var WORKS = [
-  {id:"p03", img:F("v01"), video:V("v01"), title:"花妍 FLAVO 系列 · Beauty Festa", brand:"화해 花妍", tag:"广告影片", likes:24300, saves:3120, desc:"花妍 FLAVO 系列 Beauty Festa 广告影片 — 从产品质感到氛围节奏，全流程自有体系制作。", feat:true},
+  {id:"p03", img:F("v01"), video:V("v01"), title:"化解 FLAVO 系列 · Beauty Festa", brand:"化解 Hwahae", tag:"广告影片", likes:24300, saves:3120, desc:"化解（Hwahae）FLAVO 系列 Beauty Festa 广告影片 — 从产品质感到氛围节奏，全流程自有体系制作。", feat:true},
   {id:"p04", img:F("v02"), video:V("v02"), title:"Portré × Paul and Joe", brand:"Portré × Paul and Joe", tag:"广告影片", likes:18700, saves:2480},
   {id:"p06", img:F("v03"), video:V("v03"), title:"KERASYS Royal Propolis 洗护", brand:"KERASYS", tag:"广告影片", likes:31500, saves:4260, desc:"KERASYS Royal Propolis 洗护系列广告 — 社媒发布收获 31.5k 点赞与 4.2k 收藏。", feat:true},
   {id:"p08", img:F("v04"), video:V("v04"), title:"VITALBEAUTIE 内可美 内容系列", brand:"VITALBEAUTIE", tag:"广告影片", likes:12900, saves:1740},
-  {id:"p11", img:F("v05"), video:V("v05"), title:"新世界 F&B · 仁川机场系列", brand:"신세계 F&B", tag:"广告影片", likes:9800, saves:1120},
-  {id:"p12", img:F("v06"), video:V("v06"), title:"醒可安 상쾌환 摇摇乐系列", brand:"상쾌환 醒可安", tag:"广告影片", likes:27600, saves:3890},
+  {id:"p11", img:F("v05"), video:V("v05"), title:"新世界 F&B · 仁川机场系列", brand:"新世界 F&B", tag:"广告影片", likes:9800, saves:1120},
+  {id:"p12", img:F("v06"), video:V("v06"), title:"醒可安 摇摇乐系列", brand:"醒可安", tag:"广告影片", likes:27600, saves:3890},
   {id:"p13", img:F("v07"), video:V("v07"), title:"high&gogo 幼儿奶粉系列", brand:"high&gogo", tag:"广告影片", likes:8400, saves:960},
   {id:"p14", img:F("v08"), video:V("v08"), title:"HY · 李敏镐见面会展位设计", brand:"HY", tag:"空间影像", likes:15200, saves:2050},
-  {id:"p15", img:F("v09"), video:V("v09"), title:"新世界 · 品牌联名影片", brand:"신세계 新世界", tag:"品牌联名", likes:20400, saves:2730},
-  {id:"star1", img:F("star1"), video:V("star1"), title:"田小娟 · 侧拍影像", brand:"전소연 田小娟", tag:"幕后花絮", likes:42600, saves:6830, desc:"田小娟（(G)I-DLE）舞台与幕后侧拍影像 — 全站最高互动：42.6k 点赞、6.8k 收藏。", feat:true},
-  {id:"star2", img:F("star2"), video:V("star2"), title:"章浩 · 拍摄花絮", brand:"장하오 章浩", tag:"幕后花絮", likes:36400, saves:5210, feat:true},
+  {id:"p15", img:F("v09"), video:V("v09"), title:"新世界 · 品牌联名影片", brand:"新世界", tag:"品牌联名", likes:20400, saves:2730},
+  {id:"star1", img:F("star1"), video:V("star1"), title:"田小娟 · 侧拍影像", brand:"田小娟", tag:"幕后花絮", likes:42600, saves:6830, desc:"田小娟（(G)I-DLE）舞台与幕后侧拍影像 — 全站最高互动：42.6k 点赞、6.8k 收藏。", feat:true},
+  {id:"star2", img:F("star2"), video:V("star2"), title:"章浩 · 拍摄花絮", brand:"章浩", tag:"幕后花絮", likes:36400, saves:5210, feat:true},
   {id:"star3", img:F("star3"), video:V("star3"), title:"ECOOBIX × 韩维辰 · 未公开花絮", brand:"ECOOBIX", tag:"幕后花絮", likes:21800, saves:3460},
   {id:"star4", img:F("star4"), title:"mooekiss × 金允植 · 花絮", brand:"mooekiss", tag:"幕后花絮", likes:18300, saves:2760},
   {id:"star5", img:F("star5"), video:V("star5"), title:"MAKE UP FOR EVER × Joshua · 品牌大使影片", brand:"MAKE UP FOR EVER", tag:"TVC", likes:25400, saves:3980, desc:"MAKE UP FOR EVER 品牌大使影片，与 Joshua 合作 — 品牌级 TVC 与幕后双线制作。", feat:true},
@@ -344,20 +343,20 @@ var WORKS = [
   {id:"r01", img:F("r01"), video:V("r01"), title:"婚礼影像", brand:"WEDDING FILM", tag:"婚礼", likes:5300, saves:640},
   {id:"r02", img:F("r02"), video:V("r02"), title:"HY · 新品上市影片", brand:"HY", tag:"产品影片", likes:11600, saves:1480},
   {id:"r03", img:F("r03"), video:V("r03"), title:"Denps · TikTok 系列", brand:"Denps", tag:"TikTok", likes:34200, saves:5170, desc:"Denps TikTok 内容系列 — 34.2k 点赞、5.1k 收藏，社媒爆款方法论的一次完整落地。", feat:true},
-  {id:"r04", img:F("r04"), video:V("r04"), title:"新世界 × Hiker Ground", brand:"신세계 × Hiker Ground", tag:"品牌影片", likes:9100, saves:1080},
-  {id:"r05", img:F("r05"), video:V("r05"), title:"新世界免税店 · Seoul Moon", brand:"신세계면세점", tag:"品牌影片", likes:16800, saves:2240},
+  {id:"r04", img:F("r04"), video:V("r04"), title:"新世界 × Hiker Ground", brand:"新世界 × Hiker Ground", tag:"品牌影片", likes:9100, saves:1080},
+  {id:"r05", img:F("r05"), video:V("r05"), title:"新世界免税店 · Seoul Moon", brand:"新世界免税店", tag:"品牌影片", likes:16800, saves:2240},
   {id:"r06", img:F("r06"), video:V("r06"), title:"Portré · 纯净版成片", brand:"Portré", tag:"产品影片", likes:13500, saves:1820},
-  {id:"r07", img:F("r07"), video:V("r07"), title:"醒可安 · 彩虹鸡尾酒（7月）", brand:"상쾌환 醒可安", tag:"产品影片", likes:28900, saves:4350},
-  {id:"p01", img:IMG("p01"), title:"新世界免税店 · 美妆与时尚企划", brand:"신세계면세점", tag:"品牌企划"},
-  {id:"p02", img:IMG("p02"), title:"新世界免税店 · SNS 卡片图集", brand:"신세계면세점", tag:"SNS 设计"},
+  {id:"r07", img:F("r07"), video:V("r07"), title:"醒可安 · 彩虹鸡尾酒（7月）", brand:"醒可安", tag:"产品影片", likes:28900, saves:4350},
+  {id:"p01", img:IMG("p01"), title:"新世界免税店 · 美妆与时尚企划", brand:"新世界免税店", tag:"品牌企划"},
+  {id:"p02", img:IMG("p02"), title:"新世界免税店 · SNS 卡片图集", brand:"新世界免税店", tag:"SNS 设计"},
   {id:"p05", img:IMG("p05"), title:"KERASYS Color Lab 染护系列", brand:"KERASYS", tag:"美妆企划"},
   {id:"p07", img:IMG("p07"), title:"Centellian24 社媒企划", brand:"Centellian24", tag:"社媒企划"},
   {id:"p09", img:IMG("p09"), title:"LEADERS 氨基酸保湿面膜", brand:"LEADERS", tag:"美妆企划"},
   {id:"p10", img:IMG("p10"), title:"COSRX 社媒企划", brand:"COSRX", tag:"社媒企划"},
   {id:"p16", img:IMG("p16"), title:"DearDoer · 品牌识别系统", brand:"DearDoer", tag:"品牌设计"},
   {id:"p17", img:IMG("p17"), title:"DearDoer · PDP 详情页", brand:"DearDoer", tag:"电商设计"},
-  {id:"ai1", img:F("aekyung1"), video:V("aekyung1"), title:"KERASYS 香水系列 · AI 影片", brand:"애경 KERASYS", tag:"AI 影片", likes:15600, saves:2130},
-  {id:"ai2", img:F("aekyung2"), video:V("aekyung2"), title:"KERASYS 蜂胶护发 · AI 影片", brand:"애경 KERASYS", tag:"AI 影片", likes:13200, saves:1840}
+  {id:"ai1", img:F("aekyung1"), video:V("aekyung1"), title:"KERASYS 香水系列 · AI 影片", brand:"爱敬 KERASYS", tag:"AI 影片", likes:15600, saves:2130},
+  {id:"ai2", img:F("aekyung2"), video:V("aekyung2"), title:"KERASYS 蜂胶护发 · AI 影片", brand:"爱敬 KERASYS", tag:"AI 影片", likes:13200, saves:1840}
 ];
 var byId = {}; WORKS.forEach(function(w){byId[w.id]=w});
 
@@ -482,9 +481,20 @@ var modal = document.getElementById("modal");
 function openModal(id){
   var w = byId[id]; if(!w) return;
   var media = document.getElementById("modalMedia");
+  media.classList.remove("vert");
   media.innerHTML = w.video
     ? '<video src="'+w.video+'" poster="'+w.img+'" autoplay muted loop playsinline controls></video>'
     : '<img src="'+w.img+'" alt="'+esc(w.title)+'">';
+  if(w.video){
+    var v = media.querySelector("video");
+    v.addEventListener("loadedmetadata",function(){
+      if(v.videoHeight > v.videoWidth) media.classList.add("vert");
+    });
+  } else {
+    var im = media.querySelector("img");
+    var check = function(){ if(im.naturalHeight > im.naturalWidth) media.classList.add("vert"); };
+    if(im.complete) check(); else im.addEventListener("load",check);
+  }
   document.getElementById("modalTitle").textContent = w.title;
   var meta = '<span class="chip">'+esc(w.tag)+'</span>';
   if(w.brand) meta += '<span>'+esc(w.brand)+'</span>';
