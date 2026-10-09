@@ -319,9 +319,29 @@ section[id],main[id]{scroll-margin-bottom:104px;scroll-margin-top:24px}
 [data-reveal]{opacity:0;transform:translateY(42px);transition:opacity 1s var(--ease),transform 1s var(--ease)}
 [data-reveal].in{opacity:1;transform:none}
 
+/* ---------- gradient text reveal (ref: iCSS #208) ---------- */
+.gradient-text{position:relative;display:inline-block;color:var(--ink)}
+.gradient-text::after{
+  content:attr(data-text);
+  position:absolute;inset:0;
+  white-space:normal;
+  color:transparent;
+  background:linear-gradient(180deg,transparent 0%,var(--ink) 30%,var(--acc) 50%,var(--ink) 70%,transparent 100%);
+  -webkit-background-clip:text;background-clip:text;
+  background-size:100% 300%;
+  background-position:50% 100%;
+  opacity:0;
+  pointer-events:none}
+.gradient-text.in::after{animation:textGradientSweep 1.6s var(--ease) forwards}
+@keyframes textGradientSweep{
+  0%{background-position:50% 100%;opacity:0}
+  8%{opacity:1}
+  100%{background-position:50% 0%;opacity:0}}
+
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation:none!important;transition:none!important}
   [data-reveal]{opacity:1;transform:none}
+  .gradient-text::after{display:none}
 }
 </style>
 </head>
@@ -345,9 +365,9 @@ section[id],main[id]{scroll-margin-bottom:104px;scroll-margin-top:24px}
   <div class="hero-inner">
     <p class="hero-label mono" data-reveal>STUDIO (WXZ) · Photography</p>
     <h1 class="hero-headline" data-reveal>
-      <span>Creating visuals</span>
-      <span>that make brands</span>
-      <span><em>unforgettable.</em></span>
+      <span class="gradient-text" data-reveal data-text="Creating visuals">Creating visuals</span>
+      <span class="gradient-text" data-reveal data-text="that make brands">that make brands</span>
+      <span class="gradient-text" data-reveal data-text="unforgettable."><em>unforgettable.</em></span>
     </h1>
     <p class="hero-sub" data-reveal>Photographer & director based in Seoul. <br>Commercial campaigns, celebrity shoots and brand content — end to end.</p>
     <div class="hero-cta" data-reveal>
@@ -364,10 +384,6 @@ section[id],main[id]{scroll-margin-bottom:104px;scroll-margin-top:24px}
     <div class="brands-left">
       <div class="brands-label mono">OUR PARTNERS</div>
       <div class="bw-clock mono"><span class="dot"></span>SEOUL <span id="bwTime">--:--:--</span></div>
-    </div>
-    <div class="bw-nav">
-      <button class="bw-btn" id="bwPrev" aria-label="Previous partners"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.6"><path d="M15 5l-7 7 7 7"/></svg></button>
-      <button class="bw-btn" id="bwNext" aria-label="Next partners"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.6"><path d="M9 5l7 7-7 7"/></svg></button>
     </div>
   </div>
   <div class="bw-grid" id="bwGrid"></div>
@@ -395,7 +411,7 @@ section[id],main[id]{scroll-margin-bottom:104px;scroll-margin-top:24px}
 <section class="section tint" id="services">
   <div class="wrap">
     <p class="eyebrow" data-reveal><span class="sq"></span>Services</p>
-    <h2 class="h2" data-reveal>从企划到成片，<em>一支团队</em>完成</h2>
+    <h2 class="h2 gradient-text" data-reveal>从企划到成片，<em>一支团队</em>完成</h2>
     <p class="lead" data-reveal>灯光、摄影、导演、后期全部在自有体系内完成 — 创意在传递中不打折。</p>
     <div class="svc-grid">
       <div class="svc-card" data-reveal><span class="svc-num">/ 01</span><div class="svc-name">TVC · Commercial<span>品牌影像</span></div><p class="svc-tag">广告片 · 产品片 · 品牌联名</p></div>
@@ -414,7 +430,7 @@ section[id],main[id]{scroll-margin-bottom:104px;scroll-margin-top:24px}
   </div>
   <div class="studio-copy" data-reveal>
     <p class="eyebrow"><span class="sq"></span>Since 2013</p>
-    <p class="big">有人拍下画面，有人创造记忆。十三年来，我只做一件事：让品牌被看见，被记住。</p>
+    <p class="big gradient-text" data-reveal>有人拍下画面，有人创造记忆。十三年来，我只做一件事：让品牌被看见，被记住。</p>
     <p>从新世界免税店到爱茉莉太平洋，从三养到 MAKE UP FOR EVER — 灯光、摄影、导演、后期，一个体系，全程把关。我们不追热点，我们创造让人停下来的那一帧。</p>
   </div>
 </section>
@@ -425,7 +441,7 @@ section[id],main[id]{scroll-margin-bottom:104px;scroll-margin-top:24px}
     <span class="corner tl" aria-hidden="true"></span><span class="corner tr" aria-hidden="true"></span>
     <span class="corner bl" aria-hidden="true"></span><span class="corner br" aria-hidden="true"></span>
     <span class="finale-logo"><img src="assets/logo/logo-black.png" alt="STUDIO (WXZ)"></span>
-    <h2>下一个项目，<em>从一条消息开始</em></h2>
+    <h2 class="gradient-text" data-reveal>下一个项目，<em>从一条消息开始</em></h2>
     <p class="lead">品牌影像、艺人侧拍、婚礼纪实 — 告诉我们你的想法，一个工作日内回复。</p>
     <div class="finale-cta">
       <a class="btn btn-glass" href="mailto:ro3eandcat@gmail.com">✉ &nbsp;Start a project</a>
@@ -583,8 +599,6 @@ function bwFlip(newStart, rev){
 }
 function bwNext(){ bwFlip((start+N)%NL, false); }
 function bwPrev(){ bwFlip((start-N)%NL, true); }
-document.getElementById("bwNext").addEventListener("click",function(){bwNext();bwAuto()});
-document.getElementById("bwPrev").addEventListener("click",function(){bwPrev();bwAuto()});
 function bwAuto(){ clearInterval(bwTimer); bwTimer = setInterval(bwNext, 3600); }
 bwPreload(); bwBuild(); bwAuto();
 grid.addEventListener("mouseenter",function(){ clearInterval(bwTimer); });
@@ -783,6 +797,10 @@ function onScroll(){
 }
 window.addEventListener("scroll",function(){
   if(!ticking){ requestAnimationFrame(onScroll); ticking = true; }
+});
+
+document.querySelectorAll(".gradient-text").forEach(function(el){
+  if(!el.dataset.text) el.dataset.text = el.textContent.trim();
 });
 
 var io = new IntersectionObserver(function(es){
