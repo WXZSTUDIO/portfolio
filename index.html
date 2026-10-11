@@ -4,414 +4,472 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>郑灿峰 · 数字作品展馆 — STUDIO (WXZ)</title>
-<meta name="description" content="郑灿峰 / STUDIO (WXZ) 个人作品集。影像、商业与品牌设计 — 以工匠之心，把每一帧打磨到无可挑剔。">
+<meta name="description" content="郑灿峰 / STUDIO (WXZ) 个人作品集。影像、商业与品牌设计 — 让品牌被看见，被记住。">
 <link rel="icon" type="image/png" href="assets/logo/logo-black.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <link rel="preconnect" href="https://cdn.tailwindcss.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/misans@5.0.0/lib/Normal/MiSansVF.min.css" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
   tailwind.config = {
     theme: {
       extend: {
-        colors: {
-          paper:'#F5F5F7', panel:'#FFFFFF', panel2:'#FAFAFB',
-          ink:'#1A1A1C', ink2:'#3A3A40', sub:'#6E6E73', muted:'#9A9AA0',
-          line:'#E6E6EB', line2:'#D6D6DC',
-          red:'#E54848', yellow:'#F5A623', blue:'#3A7AFE', green:'#34C759'
-        },
-        fontFamily: {
-          sans:['MiSans VF','PingFang SC','Helvetica Neue','Helvetica','Arial','sans-serif'],
-          serif:['Noto Serif SC','Songti SC','serif'],
-          mono:['IBM Plex Mono','ui-monospace','monospace']
-        },
-        transitionTimingFunction: {
-          crisp:'cubic-bezier(0.2,0.8,0.2,1)',
-          click:'cubic-bezier(0.34,1.4,0.5,1)'
-        }
+        colors: { brand: '#3D81E3' },
+        fontFamily: { sans: ['Inter','MiSans VF','PingFang SC','system-ui','sans-serif'] }
       }
     }
   }
 </script>
 <style>
-/* ============ Smartisan OS design tokens ============ */
-:root{
-  --paper:#F5F5F7; --panel:#FFFFFF; --panel-2:#FAFAFB;
-  --ink:#1A1A1C; --ink-2:#3A3A40; --sub:#6E6E73; --muted:#9A9AA0;
-  --line:#E6E6EB; --line-2:#D6D6DC;
-  --red:#E54848; --yellow:#F5A623; --blue:#3A7AFE; --green:#34C759;
-  /* mechanical, precise easing — like a watch, no drag */
-  --crisp:cubic-bezier(0.2,0.8,0.2,1);
-  --click:cubic-bezier(0.34,1.4,0.5,1);
-  --font-sans:"MiSans VF","PingFang SC","Helvetica Neue","Helvetica","Arial",sans-serif;
-  --font-serif:"Noto Serif SC","Songti SC",serif;
-  --font-mono:"IBM Plex Mono",ui-monospace,monospace;
-}
+html,body{font-family:'Inter','MiSans VF','PingFang SC',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+::selection{background:rgba(61,129,227,.3)}
 *{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:auto}
-body{background:var(--paper);color:var(--ink);font-family:var(--font-sans);font-weight:400;
-  -webkit-font-smoothing:antialiased;overflow-x:hidden;line-height:1.6;letter-spacing:.01em}
 img{display:block;max-width:100%}
 a{color:inherit;text-decoration:none}
 button{font:inherit;cursor:pointer;background:none;border:none;color:inherit}
-::selection{background:var(--ink);color:#fff}
-.mono{font-family:var(--font-mono);font-variant-numeric:tabular-nums}
-.serif{font-family:var(--font-serif)}
+.mono{font-family:'IBM Plex Mono',ui-monospace,monospace;font-variant-numeric:tabular-nums}
 section[id]{scroll-margin-top:80px}
 
-/* hairline divider helper */
-.hair{border:1px solid var(--line)}
+/* ===== Aura: liquid-glass ===== */
+.liquid-glass{
+  background:rgba(255,255,255,0.01);
+  background-blend-mode:luminosity;
+  backdrop-filter:blur(4px);
+  -webkit-backdrop-filter:blur(4px);
+  border:none;
+  box-shadow:inset 0 1px 1px rgba(255,255,255,0.1);
+  position:relative;overflow:hidden;
+}
+.liquid-glass::before{
+  content:'';position:absolute;inset:0;border-radius:inherit;padding:1.4px;
+  background:linear-gradient(180deg,rgba(255,255,255,0.45) 0%,rgba(255,255,255,0.15) 20%,
+    rgba(255,255,255,0) 40%,rgba(255,255,255,0) 60%,rgba(255,255,255,0.15) 80%,rgba(255,255,255,0.45) 100%);
+  -webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);
+  -webkit-mask-composite:xor;mask-composite:exclude;
+  pointer-events:none;z-index:2;
+}
 
-/* ============ boot loader (humanistic easter egg) ============ */
-#boot{position:fixed;inset:0;z-index:200;background:var(--paper);display:flex;
-  flex-direction:column;align-items:center;justify-content:center;gap:22px;
-  transition:opacity .5s var(--crisp),visibility .5s}
-#boot.done{opacity:0;visibility:hidden}
-.boot-mark{width:54px;height:54px;position:relative}
-.boot-mark svg{width:100%;height:100%}
-.boot-bar{width:180px;height:2px;background:var(--line-2);border-radius:2px;overflow:hidden}
-.boot-bar i{display:block;height:100%;width:0;background:var(--ink);
-  transition:width .12s linear}
-.boot-tip{font-family:var(--font-mono);font-size:12px;letter-spacing:.06em;color:var(--muted);min-height:16px}
+/* ===== Aura: shiny gradient headline ===== */
+.shiny-word{
+  background-image:linear-gradient(to right,#16345f 0%,#1d4a8c 12.5%,#A4F4FD 32.5%,#00d2ff 50%,#1d4a8c 67.5%,#16345f 87.5%,#16345f 100%);
+  background-size:200% auto;
+  -webkit-background-clip:text;background-clip:text;
+  color:transparent;-webkit-text-fill-color:transparent;
+  filter:url(#c3-noise);
+  white-space:nowrap;
+}
+.animate-shiny{animation:shiny 6s linear infinite}
+@keyframes shiny{0%{background-position:-200% center}100%{background-position:200% center}}
 
-/* ============ top nav · Smartisan slim bar ============ */
-.topnav{position:sticky;top:0;z-index:50;background:rgba(245,245,247,.82);
-  backdrop-filter:blur(18px) saturate(180%);-webkit-backdrop-filter:blur(18px) saturate(180%);
-  border-bottom:1px solid var(--line);transition:box-shadow .4s var(--crisp),background .4s}
-.topnav.scrolled{box-shadow:0 1px 0 var(--line-2),0 8px 26px rgba(20,18,14,.06);background:rgba(245,245,247,.94)}
-.nav-in{max-width:1180px;margin:0 auto;height:60px;padding:0 clamp(18px,4vw,40px);
+/* ===== Aura: shared primitives ===== */
+.apple-btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  border-radius:9999px;background:#fff;color:#000;font-weight:500;font-size:14px;
+  padding:12px 20px;transition:all .3s cubic-bezier(.22,1,.36,1);
+}
+.apple-btn:hover{background:rgba(255,255,255,.9)}
+.apple-btn:active{transform:scale(.98)}
+.apple-btn .chev{transition:transform .3s cubic-bezier(.22,1,.36,1)}
+.apple-btn:hover .chev{transform:translateX(1px)}
+.ghost-btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  border-radius:9999px;border:1px solid rgba(255,255,255,.15);color:#fff;
+  font-weight:500;font-size:14px;padding:12px 20px;transition:background .3s cubic-bezier(.22,1,.36,1);
+}
+.ghost-btn:hover{background:rgba(255,255,255,.05)}
+.ghost-btn:active{transform:scale(.98)}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:500;color:rgba(255,255,255,.6)}
+
+/* ===== navbar ===== */
+.topnav{position:sticky;top:0;z-index:50;background:rgba(12,12,12,.55);backdrop-filter:blur(18px) saturate(180%);
+  -webkit-backdrop-filter:blur(18px) saturate(180%);border-bottom:1px solid rgba(255,255,255,.08);
+  transition:background .4s cubic-bezier(.22,1,.36,1)}
+.topnav.scrolled{background:rgba(12,12,12,.8)}
+.nav-in{max-width:72rem;margin:0 auto;height:60px;padding:0 clamp(18px,4vw,24px);
   display:flex;align-items:center;justify-content:space-between;gap:16px}
-.nav-logo{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:.02em}
-.nav-logo img{height:18px;width:auto}
-.nav-logo .zh{font-size:14px}
-.nav-links{display:flex;align-items:center;gap:6px}
-.nav-links a{padding:8px 14px;font-size:14px;color:var(--sub);border-radius:8px;
-  transition:color .3s var(--crisp),background .3s var(--crisp);position:relative}
-.nav-links a:hover{color:var(--ink);background:var(--panel)}
-.nav-links a.active{color:var(--ink);font-weight:600}
-.nav-cta{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;
-  padding:9px 18px;border-radius:8px;background:var(--ink);color:#fff;
-  transition:transform .4s var(--click),background .3s}
-.nav-cta:hover{transform:translateY(-2px);background:#000}
-.nav-cta:active{transform:translateY(0) scale(.97)}
-@media(max-width:720px){.nav-links{display:none}.nav-logo .zh{display:none}}
+.nav-logo img{height:20px;width:auto}
+.nav-links{display:flex;align-items:center;gap:32px}
+.nav-links a{font-size:14px;font-weight:500;color:rgba(255,255,255,.7);
+  transition:color .3s cubic-bezier(.22,1,.36,1)}
+.nav-links a:hover{color:#fff}
+.nav-links a.active{color:#fff}
+@media(max-width:768px){.nav-links{display:none}.nav-cta-desk{padding:9px 14px;font-size:13px}}
 
-/* ============ hero · restrained, obsessively aligned ============ */
-.hero{position:relative;max-width:1180px;margin:0 auto;padding:clamp(64px,11vh,120px) clamp(18px,4vw,40px) clamp(40px,6vh,72px)}
-.hero-sys{display:flex;align-items:center;gap:14px;font-family:var(--font-mono);font-size:11px;
-  font-weight:500;letter-spacing:.18em;color:var(--muted);text-transform:uppercase;margin-bottom:30px}
-.hero-sys .dot{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 0 3px rgba(52,199,89,.18)}
-.hero-sys .sep{width:1px;height:12px;background:var(--line-2)}
-.hero-title{font-family:var(--font-serif);font-weight:700;line-height:1.22;letter-spacing:.01em;
-  font-size:clamp(30px,5.2vw,58px);color:var(--ink);max-width:18em}
-.hero-title em{font-style:normal;color:var(--red)}
-.hero-sub{margin-top:22px;color:var(--sub);font-size:clamp(15px,1.6vw,18px);max-width:40em;line-height:1.7}
-.hero-actions{margin-top:34px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+/* ===== hero ===== */
+.hero{max-width:72rem;margin:0 auto;padding:64px clamp(18px,4vw,24px) 80px;
+  display:flex;flex-direction:column;align-items:center;text-align:center}
+.hero h1{font-size:34px;line-height:1.14;font-weight:600;letter-spacing:-.01em;margin-top:24px}
+@media(min-width:768px){.hero{padding-top:112px}.hero h1{font-size:68px}}
+.hero-sub{margin-top:32px;color:rgba(255,255,255,.6);max-width:28rem;font-size:16px;line-height:1.5}
+.hero-actions{margin-top:32px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:center}
+.hero-note{margin-top:16px;font-size:12px;color:rgba(255,255,255,.4)}
 
-/* ============ segmented filter (Smartisan tag nav) ============ */
-.filter-wrap{margin-top:42px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
-.filter-bar{position:relative;display:inline-flex;border:1px solid var(--line-2);border-radius:999px;
-  background:var(--panel);padding:4px}
-.filter-ind{position:absolute;top:4px;bottom:4px;left:4px;width:60px;background:var(--ink);
-  border-radius:999px;transition:transform .42s var(--click),width .42s var(--click)}
-.filter-chip{position:relative;z-index:1;padding:8px 22px;font-size:13px;font-weight:600;color:var(--sub);
-  border-radius:999px;transition:color .35s var(--crisp);white-space:nowrap}
-.filter-chip.active{color:#fff}
-.filter-chip .cnt{font-family:var(--font-mono);font-size:11px;opacity:.6;margin-left:6px}
-.filter-note{font-family:var(--font-mono);font-size:11px;letter-spacing:.14em;color:var(--muted);text-transform:uppercase}
+/* ===== macOS-style meta strip ===== */
+.metastrip{height:40px;background:rgba(0,0,0,.4);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  border-top:1px solid rgba(255,255,255,.1);border-bottom:1px solid rgba(255,255,255,.1)}
+.metastrip-in{max-width:72rem;margin:0 auto;padding:0 clamp(18px,4vw,24px);height:100%;
+  display:flex;align-items:center;justify-content:space-between;font-size:12px}
+.metastrip .brand{font-weight:700;color:#fff;display:flex;align-items:center;gap:8px}
+.metastrip .brand img{height:16px}
+.metastrip .items{display:flex;gap:16px;color:rgba(255,255,255,.55);margin-left:20px}
+@media(max-width:767px){.metastrip .items{display:none}}
+
+/* ===== showcase ===== */
+.showcase{max-width:72rem;margin:0 auto;padding:64px clamp(18px,4vw,24px) 96px}
+@media(min-width:768px){.showcase{padding-top:96px;padding-bottom:128px}}
+.filter-bar{position:relative;display:inline-flex;border:1px solid rgba(255,255,255,.12);border-radius:9999px;
+  background:rgba(255,255,255,.03);padding:4px;backdrop-filter:blur(8px)}
+.filter-ind{position:absolute;top:4px;bottom:4px;left:4px;width:60px;background:#fff;border-radius:9999px;
+  transition:transform .42s cubic-bezier(.34,1.4,.5,1),width .42s cubic-bezier(.34,1.4,.5,1)}
+.filter-chip{position:relative;z-index:1;padding:8px 22px;font-size:13px;font-weight:600;
+  color:rgba(255,255,255,.6);border-radius:9999px;transition:color .35s cubic-bezier(.22,1,.36,1);white-space:nowrap}
+.filter-chip.active{color:#000}
+.filter-chip .cnt{font-family:'IBM Plex Mono',monospace;font-size:11px;opacity:.6;margin-left:6px}
 @media(max-width:560px){.filter-chip{padding:8px 15px;font-size:12px}.filter-chip .cnt{display:none}}
 
-/* ============ nine-grid showcase ============ */
-.showcase{max-width:1180px;margin:0 auto;padding:clamp(14px,3vh,30px) clamp(18px,4vw,40px) clamp(40px,7vh,80px)}
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:32px}
 @media(max-width:920px){.grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:520px){.grid{gap:10px}}
-.work-card{position:relative;background:var(--panel);border:1px solid var(--line);border-radius:12px;
-  overflow:hidden;cursor:pointer;aspect-ratio:1/1;
-  /* neo-skeuomorphic: top inner highlight + bottom inner shadow = physical panel edge */
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.9),inset 0 -1px 0 rgba(0,0,0,.04),0 1px 2px rgba(20,18,14,.05);
-  transition:transform .42s var(--crisp),border-color .42s var(--crisp),box-shadow .42s var(--crisp);
-  will-change:transform}
+.work-card{position:relative;aspect-ratio:1/1;border-radius:16px;overflow:hidden;cursor:pointer;
+  transition:transform .5s cubic-bezier(.22,1,.36,1);will-change:transform}
 .work-card.hidden{display:none}
-.work-card:hover{transform:translateY(-4px);
-  border-color:var(--cat,var(--ink));
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 12px 26px rgba(20,18,14,.12)}
-.work-card:active{transform:translateY(-1px) scale(.992)}
+.work-card:hover{transform:translateY(-6px)}
+.work-card:active{transform:translateY(-2px) scale(.992)}
 .work-thumb{position:absolute;inset:0}
-.work-thumb img{width:100%;height:100%;object-fit:cover;transition:transform .6s var(--crisp),filter .5s var(--crisp);filter:saturate(.96)}
-.work-card:hover .work-thumb img{transform:scale(1.05);filter:saturate(1.04)}
-/* category tag chip — top-left, precise */
-.tag{position:absolute;top:10px;left:10px;z-index:3;font-family:var(--font-mono);font-size:10px;font-weight:600;
-  letter-spacing:.12em;padding:4px 9px;border-radius:5px;color:#fff;background:var(--cat,var(--ink));
-  box-shadow:0 1px 2px rgba(0,0,0,.18)}
-.tag.motion{--cat:var(--blue)} .tag.biz{--cat:var(--red)} .tag.design{--cat:var(--yellow)}
-/* featured star */
-.star{position:absolute;top:10px;right:10px;z-index:3;width:20px;height:20px;color:var(--yellow);
-  filter:drop-shadow(0 1px 1px rgba(0,0,0,.3))}
-/* base info strip (always visible, hairline top border) */
-.work-base{position:absolute;left:0;right:0;bottom:0;z-index:2;padding:30px 12px 12px;
-  background:linear-gradient(180deg,transparent,rgba(255,255,255,.94) 52%,rgba(255,255,255,.98));
-  border-top:1px solid rgba(0,0,0,.05)}
-.work-title{font-size:13px;font-weight:700;line-height:1.35;color:var(--ink);
-  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;letter-spacing:.01em}
-/* hover high-density panel */
-.work-hover{position:absolute;left:0;right:0;bottom:0;z-index:4;padding:12px;background:var(--panel);
-  border-top:1px solid var(--cat,var(--line-2));
-  opacity:0;transform:translateY(8px);pointer-events:none;
-  transition:opacity .38s var(--crisp),transform .38s var(--crisp)}
+.work-thumb img{width:100%;height:100%;object-fit:cover;transition:transform .7s cubic-bezier(.22,1,.36,1)}
+.work-card:hover .work-thumb img{transform:scale(1.05)}
+.work-scrim{position:absolute;inset:0;background:linear-gradient(180deg,rgba(12,12,12,.15) 0%,rgba(12,12,12,0) 35%,rgba(12,12,12,.85) 100%)}
+.wc-tag{position:absolute;top:10px;left:10px;z-index:3;font-size:10px;font-weight:700;letter-spacing:.04em;
+  padding:4px 10px;border-radius:9999px;color:#0c0c0c;background:var(--cat,#00d2ff)}
+.wc-star{position:absolute;top:9px;right:9px;z-index:3;width:18px;height:18px;color:#f59e0b;
+  filter:drop-shadow(0 1px 2px rgba(0,0,0,.6))}
+.work-base{position:absolute;left:0;right:0;bottom:0;z-index:2;padding:14px}
+.work-title{font-size:13px;font-weight:600;line-height:1.35;color:#fff;letter-spacing:-.01em;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.work-hover{position:absolute;left:0;right:0;bottom:0;z-index:4;padding:14px;background:rgba(10,10,12,.72);
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-top:1px solid var(--cat,rgba(255,255,255,.2));
+  opacity:0;transform:translateY(10px);pointer-events:none;
+  transition:opacity .4s cubic-bezier(.22,1,.36,1),transform .4s cubic-bezier(.22,1,.36,1)}
 .work-card:hover .work-hover{opacity:1;transform:none}
 .work-row{display:flex;align-items:center;justify-content:space-between;gap:8px}
-.work-brand{font-size:11px;font-weight:600;color:var(--ink-2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.work-stat{font-family:var(--font-mono);font-size:10.5px;font-weight:500;color:var(--sub);white-space:nowrap;flex:none}
-.work-stat b{color:var(--red);font-weight:600}
-.work-tip{margin-top:8px;font-size:11px;line-height:1.4;color:var(--muted);
-  border-top:1px solid var(--line);padding-top:7px;letter-spacing:.01em}
-@media(max-width:520px){.work-hover{display:none}.work-base{background:linear-gradient(180deg,transparent,rgba(255,255,255,.96) 60%);padding-top:34px}}
+.work-brand{font-size:11px;font-weight:600;color:rgba(255,255,255,.85);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.work-stat{font-family:'IBM Plex Mono',monospace;font-size:10.5px;font-weight:500;color:rgba(255,255,255,.6);white-space:nowrap;flex:none}
+.work-stat b{color:#00d2ff;font-weight:600}
+.work-tip{margin-top:8px;font-size:11px;line-height:1.45;color:rgba(255,255,255,.5);
+  border-top:1px solid rgba(255,255,255,.1);padding-top:7px}
+@media(max-width:520px){.work-hover{display:none}}
 
-/* ============ partners · precise hairline grid ============ */
-.partners{max-width:1180px;margin:0 auto;padding:clamp(40px,7vh,80px) clamp(18px,4vw,40px);border-top:1px solid var(--line)}
-.sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:26px}
-.sec-title{font-family:var(--font-serif);font-weight:700;font-size:clamp(22px,3.4vw,34px);letter-spacing:.01em}
-.sec-title em{font-style:normal;color:var(--red)}
-.sec-meta{display:flex;align-items:center;gap:10px;font-family:var(--font-mono);font-size:11px;
-  letter-spacing:.16em;color:var(--muted);text-transform:uppercase}
-.sec-meta .live{width:7px;height:7px;border-radius:50%;background:var(--green);animation:tick 2s steps(1) infinite}
-@keyframes tick{0%,60%{opacity:1}61%,100%{opacity:.25}}
-.sec-meta #seoul{color:var(--ink)}
-.brand-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line-2);
-  border:1px solid var(--line-2);border-radius:12px;overflow:hidden}
-@media(max-width:560px){.brand-grid{grid-template-columns:repeat(3,1fr)}}
-.brand-cell{position:relative;aspect-ratio:16/7;background:var(--panel);display:grid;place-items:center;
-  padding:18px;transition:background .3s var(--crisp)}
-.brand-cell::after{content:"";position:absolute;inset:0;box-shadow:inset 0 1px 0 rgba(255,255,255,.8);pointer-events:none}
-.brand-cell img{max-height:30px;max-width:78%;object-fit:contain;filter:grayscale(1);opacity:.62;
-  transition:opacity .4s var(--crisp),filter .4s var(--crisp),transform .42s var(--crisp)}
-.brand-cell:hover{background:var(--panel-2)}
-.brand-cell:hover img{filter:none;opacity:1;transform:scale(1.06)}
-.brand-cell.dim img{filter:grayscale(1) brightness(.5);opacity:.9}
+/* ===== partners ===== */
+.partners{max-width:72rem;margin:0 auto;padding:64px clamp(18px,4vw,24px)}
+.kicker{text-align:center;font-size:12px;text-transform:uppercase;letter-spacing:.15em;color:rgba(255,255,255,.4)}
+.brand-grid{display:flex;flex-wrap:wrap;justify-content:center;gap:14px;margin-top:40px}
+.brand-cell{position:relative;aspect-ratio:16/7;border-radius:14px;display:grid;place-items:center;padding:18px;
+  width:calc((100% - 28px)/3);
+  transition:transform .42s cubic-bezier(.22,1,.36,1)}
+@media(min-width:768px){.brand-cell{width:calc((100% - 56px)/5)}}
+.brand-cell img{max-height:28px;max-width:80%;object-fit:contain;
+  filter:brightness(0) invert(1);opacity:.92;transition:opacity .4s,transform .42s cubic-bezier(.22,1,.36,1)}
+.brand-cell:hover{transform:translateY(-3px)}
+.brand-cell:hover img{opacity:1;transform:scale(1.04)}
 
-/* ============ about · skeuomorphic emblem + copy ============ */
-.about{max-width:1180px;margin:0 auto;padding:clamp(40px,7vh,80px) clamp(18px,4vw,40px);border-top:1px solid var(--line)}
-.about-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:clamp(28px,5vw,64px);align-items:center}
-@media(max-width:820px){.about-grid{grid-template-columns:1fr;gap:32px}}
-.about-portrait{position:relative;border:1px solid var(--line-2);border-radius:14px;overflow:hidden;background:var(--panel);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 10px 30px rgba(20,18,14,.08)}
+/* ===== about ===== */
+.about{max-width:72rem;margin:0 auto;padding:64px clamp(18px,4vw,24px)}
+.about-grid{display:grid;grid-template-columns:1fr;gap:40px;align-items:center}
+@media(min-width:820px){.about-grid{grid-template-columns:.8fr 1.2fr;gap:64px}}
+.about-portrait{border-radius:18px;overflow:hidden}
 .about-portrait img{width:100%;aspect-ratio:4/5;object-fit:cover;object-position:center 22%}
-.about-portrait .seal{position:absolute;top:12px;left:12px;width:42px;height:42px;background:var(--ink);border-radius:10px;
-  display:grid;place-items:center;color:#fff;box-shadow:0 3px 8px rgba(0,0,0,.25)}
-.about-copy .eyebrow{display:flex;align-items:center;gap:10px;font-family:var(--font-mono);font-size:11px;
-  font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:var(--muted);margin-bottom:14px}
-.about-copy h2{font-family:var(--font-serif);font-weight:700;font-size:clamp(26px,4vw,40px);line-height:1.25;letter-spacing:.01em}
-.about-copy h2 em{font-style:normal;color:var(--red)}
-.about-copy p{margin-top:16px;color:var(--sub);font-size:clamp(14px,1.5vw,16px);max-width:46em;line-height:1.78}
-.about-copy .motto{margin-top:22px;font-family:var(--font-serif);font-size:15px;color:var(--ink-2);
-  border-left:3px solid var(--red);padding-left:14px;line-height:1.7}
+.about-copy h2{margin-top:20px;font-size:30px;font-weight:600;letter-spacing:-.02em;line-height:1.05}
+@media(min-width:768px){.about-copy h2{font-size:44px}}
+.about-copy p.body{margin-top:20px;color:rgba(255,255,255,.6);font-size:16px;line-height:1.6;max-width:32rem}
+.about-motto{margin-top:24px;font-size:15px;color:rgba(255,255,255,.85);border-left:2px solid #00d2ff;padding-left:14px;line-height:1.7}
 .about-links{margin-top:28px;display:flex;gap:12px;flex-wrap:wrap}
-.icobtn{display:inline-flex;align-items:center;gap:10px;padding:11px 18px;border:1px solid var(--line-2);
-  border-radius:10px;background:var(--panel);font-size:13px;font-weight:600;color:var(--ink-2);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 1px 2px rgba(20,18,14,.05);
-  transition:transform .4s var(--click),border-color .3s var(--crisp),color .3s var(--crisp)}
-.icobtn:hover{transform:translateY(-3px);border-color:var(--ink);color:var(--ink)}
+.icobtn{display:inline-flex;align-items:center;gap:10px;padding:11px 18px;border-radius:12px;font-size:13px;font-weight:500;
+  color:rgba(255,255,255,.85);transition:transform .4s cubic-bezier(.34,1.4,.5,1)}
+.icobtn:hover{transform:translateY(-3px);color:#fff}
 .icobtn:active{transform:translateY(0) scale(.97)}
 .icobtn svg{width:18px;height:18px;flex:none}
 
-/* ============ footer ============ */
-.foot{border-top:1px solid var(--line);margin-top:clamp(20px,4vh,40px)}
-.foot-in{max-width:1180px;margin:0 auto;padding:30px clamp(18px,4vw,40px);
-  display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
-.foot-logo{display:flex;align-items:center;gap:10px;font-weight:700}
-.foot-logo img{height:14px}
-.foot-motto{font-family:var(--font-serif);font-size:13px;color:var(--sub);letter-spacing:.02em}
-.foot-cp{font-family:var(--font-mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+/* ===== Aura: final CTA with giant noise watermark ===== */
+.c3-section{position:relative;padding:40px 20px 80px;display:flex;flex-direction:column;align-items:center;overflow-x:hidden}
+.c3-watermark-container{position:relative;width:100%;max-width:1100px;text-align:center;margin-top:40px;z-index:2}
+.c3-watermark-main{font-size:9rem;font-weight:800;line-height:1.08;letter-spacing:-.01em;
+  filter:url(#c3-noise);display:flex;flex-direction:column;align-items:center;gap:6px}
+.c3-watermark-line-1{color:#fff}
+.c3-watermark-line-2{background:linear-gradient(to right,#091020 0%,#0B2551 25%,#A4F4FD 65%,#00d2ff 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent}
+.c3-grid-single{display:grid;grid-template-columns:minmax(0,1fr);width:100%;max-width:720px;margin:60px auto 0;
+  position:relative;z-index:3}
+.c3-card{background:linear-gradient(135deg,rgba(0,0,0,.7),rgba(0,0,0,.4));
+  backdrop-filter:blur(14px) brightness(.91);-webkit-backdrop-filter:blur(14px) brightness(.91);
+  border:1px solid rgba(255,255,255,1);border-radius:44px;padding:50px 24px;display:flex;flex-direction:column;
+  transition:all .6s cubic-bezier(.22,1,.36,1);overflow:hidden;position:relative;text-align:center;align-items:center}
+.c3-card::before{content:'';position:absolute;inset:0;border-radius:inherit;
+  background:linear-gradient(135deg,rgba(255,255,255,.1) 0%,rgba(255,255,255,0) 50%);pointer-events:none}
+.c3-card h3{font-size:30px;font-weight:600;letter-spacing:-.02em;line-height:1.05;margin-top:12px}
+@media(min-width:768px){.c3-card h3{font-size:42px}}
+.c3-card p{margin-top:20px;color:rgba(255,255,255,.6);font-size:14px;line-height:1.6;max-width:26rem}
+.c3-card-actions{margin-top:32px;display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+@media(max-width:1024px){
+  .c3-watermark-main{font-size:3.5rem;filter:none}
+  .c3-watermark-line-2{background:none;-webkit-text-fill-color:#00d2ff;color:#00d2ff}
+  .c3-card{border-radius:32px;padding:36px 20px}
+}
 
-/* ============ modal · crisp, hairline ============ */
+/* ===== footer ===== */
+.foot{border-top:1px solid rgba(255,255,255,.08);margin-top:40px}
+.foot-in{max-width:72rem;margin:0 auto;padding:32px clamp(18px,4vw,24px);
+  display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.foot-in img{height:14px}
+.foot-motto{font-size:13px;color:rgba(255,255,255,.5)}
+.foot-cp{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.35)}
+
+/* ===== modal ===== */
 .modal{position:fixed;inset:0;z-index:120;display:none;align-items:center;justify-content:center;
-  padding:4vh 16px;background:rgba(26,26,28,.5);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+  padding:4vh 16px;background:rgba(6,6,8,.72);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
 .modal.open{display:flex}
-.modal-box{position:relative;width:min(760px,100%);background:var(--panel);border-radius:14px;overflow:hidden;
-  border:1px solid var(--line-2);box-shadow:0 30px 80px rgba(20,18,14,.28);animation:pop .42s var(--crisp)}
+.modal-box{position:relative;width:min(760px,100%);border-radius:20px;overflow:hidden;
+  background:rgba(14,16,20,.92);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
+  border:1px solid rgba(255,255,255,.12);box-shadow:0 30px 80px rgba(0,0,0,.6);
+  animation:pop .5s cubic-bezier(.22,1,.36,1)}
 @keyframes pop{from{opacity:0;transform:translateY(22px) scale(.985)}to{opacity:1;transform:none}}
-.modal-media{position:relative;aspect-ratio:16/9;background:var(--paper)}
+.modal-media{position:relative;aspect-ratio:16/9;background:#0e1014}
 .modal-media img,.modal-media video{width:100%;height:100%;object-fit:cover;display:block}
 .modal-media.vert{width:auto;height:min(70vh,720px);aspect-ratio:9/16;max-width:100%;margin:0 auto}
-.modal-loading{position:absolute;inset:0;display:grid;place-items:center;gap:12px;background:var(--paper);
-  font-family:var(--font-mono);font-size:12px;letter-spacing:.06em;color:var(--muted);text-align:center;padding:20px}
-.modal-loading .spin{width:22px;height:22px;border:2px solid var(--line-2);border-top-color:var(--ink);border-radius:50%;
+.modal-loading{position:absolute;inset:0;display:grid;place-items:center;gap:12px;background:#0e1014;
+  font-family:'IBM Plex Mono',monospace;font-size:12px;color:rgba(255,255,255,.45);text-align:center;padding:20px}
+.modal-loading .spin{width:22px;height:22px;border:2px solid rgba(255,255,255,.15);border-top-color:#fff;border-radius:50%;
   animation:spin .8s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
 .modal-close{position:absolute;top:12px;right:12px;z-index:5;width:36px;height:36px;border-radius:50%;
-  background:rgba(255,255,255,.92);display:grid;place-items:center;transition:background .3s,transform .4s var(--click)}
-.modal-close:hover{background:var(--ink);transform:rotate(90deg)}
-.modal-close:hover svg{stroke:#fff}
-.modal-close svg{width:16px;height:16px;stroke:var(--ink)}
+  background:rgba(255,255,255,.1);backdrop-filter:blur(8px);display:grid;place-items:center;
+  transition:background .3s,transform .4s cubic-bezier(.34,1.4,.5,1)}
+.modal-close:hover{background:#fff;transform:rotate(90deg)}
+.modal-close:hover svg{stroke:#000}
+.modal-close svg{width:16px;height:16px;stroke:#fff}
 .modal-body{padding:24px clamp(20px,4vw,36px) 32px}
-.modal-kicker{display:flex;align-items:center;gap:10px;font-family:var(--font-mono);font-size:11px;
-  letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
-.modal-kicker .t{color:var(--cat,var(--ink))}
-.modal-title{font-family:var(--font-serif);font-weight:700;font-size:clamp(20px,3vw,30px);line-height:1.25;
-  margin-top:10px;color:var(--ink);word-break:keep-all}
+.modal-kicker{display:flex;align-items:center;gap:10px;font-family:'IBM Plex Mono',monospace;font-size:11px;
+  letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.45)}
+.modal-title{font-weight:600;font-size:24px;line-height:1.25;margin-top:10px;color:#fff;letter-spacing:-.02em}
+@media(min-width:768px){.modal-title{font-size:32px}}
 .modal-meta{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:14px}
-.chip{border:1px solid var(--line-2);border-radius:999px;padding:5px 13px;font-size:11px;font-weight:600;color:var(--sub);background:var(--panel-2)}
+.chip{border:1px solid rgba(255,255,255,.12);border-radius:9999px;padding:5px 13px;font-size:11px;font-weight:500;
+  color:rgba(255,255,255,.6);background:rgba(255,255,255,.03)}
 .modal-stats{display:flex;gap:24px;margin-top:18px}
-.modal-stats .st b{display:flex;align-items:center;gap:7px;font-size:22px;font-weight:800;color:var(--ink);font-family:var(--font-mono)}
-.modal-stats .st span{font-family:var(--font-mono);font-size:10px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
-.st-like b::before{content:"";width:11px;height:11px;background:var(--red);clip-path:polygon(50% 100%,0 38%,10% 12%,32% 6%,50% 22%,68% 6%,90% 12%,100% 38%)}
-.st-save b::before{content:"";width:10px;height:11px;background:var(--sub);clip-path:polygon(0 0,100% 0,100% 100%,50% 74%,0 100%)}
-.modal-desc{margin-top:18px;color:var(--sub);font-size:15px;line-height:1.75}
+.modal-stats .st b{display:flex;align-items:center;gap:7px;font-size:22px;font-weight:700;color:#fff;font-family:'IBM Plex Mono',monospace}
+.modal-stats .st span{font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.4)}
+.st-like b::before{content:"";width:11px;height:11px;background:#00d2ff;clip-path:polygon(50% 100%,0 38%,10% 12%,32% 6%,50% 22%,68% 6%,90% 12%,100% 38%)}
+.st-save b::before{content:"";width:10px;height:11px;background:rgba(255,255,255,.5);clip-path:polygon(0 0,100% 0,100% 100%,50% 74%,0 100%)}
+.modal-desc{margin-top:18px;color:rgba(255,255,255,.6);font-size:15px;line-height:1.7}
 .modal-actions{margin-top:24px;display:flex;gap:12px;flex-wrap:wrap}
-.m-btn{display:inline-flex;align-items:center;gap:9px;font-weight:600;font-size:13px;padding:12px 24px;border-radius:9px;
-  transition:transform .4s var(--click),background .3s,border-color .3s}
-.m-btn:active{transform:scale(.97)}
-.m-btn.dark{background:var(--ink);color:#fff}
-.m-btn.dark:hover{background:#000}
-.m-btn.line{border:1px solid var(--line-2);color:var(--ink);background:var(--panel)}
-.m-btn.line:hover{border-color:var(--ink)}
 @media(max-width:560px){.modal{padding:0}.modal-box{border-radius:0;min-height:100svh;border:none}}
 
-/* ============ reveal · crisp, quick, staggered ============ */
-[data-reveal]{opacity:0;transform:translateY(16px);transition:opacity .55s var(--crisp),transform .55s var(--crisp)}
+/* ===== reveal ===== */
+[data-reveal]{opacity:0;transform:translateY(20px);
+  transition:opacity .8s cubic-bezier(.22,1,.36,1),transform .8s cubic-bezier(.22,1,.36,1)}
 [data-reveal].in{opacity:1;transform:none}
 
 @media (prefers-reduced-motion:reduce){
-  *,*::before,*::after{animation-duration:.001ms!important;transition-duration:.001ms!important}
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
   [data-reveal]{opacity:1;transform:none}
-  #boot{display:none!important}
+  .animate-shiny{animation:none;background-position:50% center}
 }
 </style>
 </head>
-<body class="font-sans">
+<body class="bg-[#0c0c0c] text-white">
 
-<!-- ============ BOOT LOADER ============ -->
-<div id="boot">
-  <div class="boot-mark">
-    <svg viewBox="0 0 48 48" fill="none">
-      <rect x="9" y="6" width="30" height="34" rx="6" stroke="#1A1A1C" stroke-width="2.4"/>
-      <path d="M24 6v36" stroke="#1A1A1C" stroke-width="1.2" opacity=".35"/>
-      <path d="M14 16h20M14 24h20M14 32h13" stroke="#1A1A1C" stroke-width="1.6" stroke-linecap="round"/>
-      <circle cx="33" cy="32" r="3.2" fill="#E54848"/>
-    </svg>
-  </div>
-  <div class="boot-bar"><i id="bootFill"></i></div>
-  <div class="boot-tip mono" id="bootTip">正在校准精密仪器…</div>
-</div>
+<!-- root noise filter -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <filter id="c3-noise">
+    <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch" />
+    <feColorMatrix type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.35 0" />
+    <feComposite in2="SourceGraphic" operator="in" result="noise" />
+    <feBlend in="SourceGraphic" in2="noise" mode="multiply" />
+  </filter>
+</defs></svg>
 
-<!-- ============ TOP NAV ============ -->
-<header class="topnav" id="topnav">
-  <div class="nav-in">
-    <a class="nav-logo" href="#top" data-anchor>
-      <img src="assets/logo/logo-black.png" alt="STUDIO (WXZ)">
-      <span class="zh">郑灿峰</span>
-    </a>
-    <nav class="nav-links">
-      <a href="#show" data-anchor>作品</a>
-      <a href="#partners" data-anchor>合作</a>
-      <a href="#about" data-anchor>关于</a>
-    </nav>
-    <a class="nav-cta" href="#about" data-anchor>联系我 →</a>
-  </div>
-</header>
+<div class="relative min-h-screen overflow-x-hidden bg-[#0c0c0c] text-white">
 
-<!-- ============ HERO ============ -->
-<section class="hero" id="top">
-  <div class="hero-sys" data-reveal>
-    <span class="dot"></span><span>SYS</span><span class="sep"></span>
-    <span>32 WORKS</span><span class="sep"></span><span>SEOUL · 2013—NOW</span>
-  </div>
-  <h1 class="hero-title" data-reveal>我是 <em>郑灿峰</em>，这里是我的<em>数字作品展馆</em>。</h1>
-  <p class="hero-sub" data-reveal>影像、商业与品牌设计 —— 以工匠之心，把每一帧都打磨到无可挑剔。从企划、拍摄到后期，一支团队，全程把关。</p>
-  <div class="hero-actions" data-reveal>
-    <a class="nav-cta" href="#show" data-anchor>浏览作品 →</a>
-    <a class="icobtn" href="#about" data-anchor>关于我</a>
+  <!-- global background video -->
+  <div class="fixed inset-0 z-0 pointer-events-none">
+    <video autoplay loop muted playsinline preload="auto"
+      class="w-full h-full object-cover pointer-events-none"
+      src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260508_064122_c4750c0e-7476-4b44-94a2-a85a65c63bf2.mp4"></video>
+    <div class="absolute inset-0" style="background:linear-gradient(180deg,rgba(12,12,12,.55) 0%,rgba(12,12,12,.72) 45%,rgba(12,12,12,.92) 100%)"></div>
   </div>
 
-  <!-- Smartisan tag-style category navigation -->
-  <div class="filter-wrap" data-reveal>
-    <div class="filter-bar" id="filterBar">
-      <span class="filter-ind" id="filterInd"></span>
-      <button class="filter-chip active" data-cat="all">全部<span class="cnt" id="cAll">0</span></button>
-      <button class="filter-chip" data-cat="motion">影像<span class="cnt" id="cMotion">0</span></button>
-      <button class="filter-chip" data-cat="biz">商业<span class="cnt" id="cBiz">0</span></button>
-      <button class="filter-chip" data-cat="design">设计<span class="cnt" id="cDesign">0</span></button>
+  <!-- 36rem guide lines -->
+  <div class="hidden md:block pointer-events-none fixed inset-y-0 left-1/2 -translate-x-[calc(50%+36rem)] w-px bg-white/10 z-[5]"></div>
+  <div class="hidden md:block pointer-events-none fixed inset-y-0 left-1/2 translate-x-[calc(-50%+36rem)] w-px bg-white/10 z-[5]"></div>
+
+  <!-- ===== navbar ===== -->
+  <header class="topnav relative z-40" id="topnav">
+    <div class="nav-in">
+      <a class="nav-logo" href="#top" data-anchor><img src="assets/logo/logo-white.png" alt="STUDIO (WXZ)"></a>
+      <nav class="nav-links">
+        <a href="#show" data-anchor>作品</a>
+        <a href="#partners" data-anchor>合作</a>
+        <a href="#about" data-anchor>关于</a>
+        <a href="#contact" data-anchor>联系</a>
+      </nav>
+      <a class="apple-btn nav-cta-desk" href="#contact" data-anchor>聊聊合作
+        <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M9 5l7 7-7 7"/></svg>
+      </a>
     </div>
-    <span class="filter-note" id="filterNote">SHOWING · ALL</span>
-  </div>
-</section>
+  </header>
 
-<!-- ============ NINE-GRID SHOWCASE ============ -->
-<main class="showcase" id="show">
-  <div class="grid" id="grid"></div>
-</main>
-
-<!-- ============ PARTNERS · hairline grid ============ -->
-<section class="partners" id="partners">
-  <div class="sec-head">
-    <h2 class="sec-title">合作伙伴 · <em>精选品牌墙</em></h2>
-    <div class="sec-meta mono"><span class="live"></span>SEOUL <span id="seoul">--:--:--</span></div>
-  </div>
-  <div class="brand-grid" id="brandGrid"></div>
-</section>
-
-<!-- ============ ABOUT ============ -->
-<section class="about" id="about">
-  <div class="about-grid">
-    <div class="about-portrait" data-reveal>
-      <span class="seal" aria-hidden="true">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M14 3l7 7-9 9a2.8 2.8 0 0 1-4 0l-2-2a2.8 2.8 0 0 1 0-4z"/><path d="M11 6l7 7"/><path d="M3 21l4-1"/>
-        </svg>
-      </span>
-      <img src="assets/img/avatar.jpg" alt="郑灿峰 — 摄影师 · 导演">
+  <!-- ===== hero ===== -->
+  <section class="hero relative z-10" id="top">
+    <div class="eyebrow" data-reveal style="transition-delay:.15s">
+      <span style="width:6px;height:6px;border-radius:50%;background:#00d2ff"></span>
+      <span class="mono">SYS · 32 WORKS · SEOUL · 2013—NOW</span>
     </div>
-    <div class="about-copy" data-reveal>
-      <p class="eyebrow"><span class="dot" style="width:7px;height:7px;border-radius:50%;background:var(--red)"></span>ABOUT · 关于我</p>
-      <h2>慢一点，<em>才能看得清楚</em>。</h2>
-      <p>我是郑灿峰，摄影师与导演，常驻首尔。十三年来，我只做一件事：让品牌被看见，被记住。从新世界免税店到爱茉莉太平洋，从三养到 MAKE UP FOR EVER —— 灯光、摄影、导演、后期，一个体系，全程把关。</p>
-      <p>我们不追热点，我们创造让人停下来的那一帧。</p>
-      <p class="motto">「匠心，就是把简单留给你，把复杂留给自己。」</p>
-      <div class="about-links">
-        <a class="icobtn" href="mailto:ro3eandcat@gmail.com">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
-          ro3eandcat@gmail.com
-        </a>
-        <a class="icobtn" href="https://github.com/WXZSTUDIO" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.5 2 2 6.6 2 12.2c0 4.5 2.9 8.3 6.8 9.6.5.1.7-.2.7-.5v-1.7c-2.8.6-3.4-1.4-3.4-1.4-.4-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.6 2.4 1.1 3 .8.1-.7.4-1.1.6-1.4-2.2-.3-4.6-1.1-4.6-5 0-1.1.4-2 1-2.7-.1-.3-.4-1.3.1-2.7 0 0 .8-.3 2.7 1a9.4 9.4 0 0 1 5 0c1.9-1.3 2.7-1 2.7-1 .5 1.4.2 2.4.1 2.7.6.7 1 1.6 1 2.7 0 3.9-2.3 4.7-4.6 5 .4.3.7.9.7 1.9v2.8c0 .3.2.6.7.5A10.2 10.2 0 0 0 22 12.2C22 6.6 17.5 2 12 2z"/></svg>
-          GitHub
-        </a>
-        <button class="icobtn" id="wxCopy">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 11l18-7-7 18-2-7-9-4z"/></svg>
-          WECHAT · ICF304
-        </button>
+    <h1 data-reveal style="transition-delay:.3s">
+      我是郑灿峰，<br>
+      这里是我的<span class="shiny-word animate-shiny">数字作品展馆</span>。
+    </h1>
+    <p class="hero-sub" data-reveal style="transition-delay:.5s">
+      影像、商业与品牌设计。从企划、拍摄到后期，一支团队全程把关 —— 让品牌被看见，被记住。
+    </p>
+    <div class="hero-actions" data-reveal style="transition-delay:.7s">
+      <a class="apple-btn" href="#show" data-anchor>浏览作品
+        <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M9 5l7 7-7 7"/></svg>
+      </a>
+      <a class="ghost-btn" href="#about" data-anchor>关于我</a>
+    </div>
+    <p class="hero-note mono" data-reveal style="transition-delay:.8s">首尔 · 全球接单 · 中 / 韩 / 英</p>
+  </section>
+
+  <!-- ===== meta strip ===== -->
+  <div class="metastrip relative z-10" data-reveal>
+    <div class="metastrip-in">
+      <div style="display:flex;align-items:center">
+        <span class="brand"><img src="assets/logo/logo-white.png" alt="STUDIO (WXZ)"></span>
+        <span class="items"><span>影像</span><span>商业</span><span>设计</span><span>关于</span></span>
+      </div>
+      <div class="mono" style="color:rgba(255,255,255,.55);display:flex;align-items:center;gap:10px">
+        <span style="width:6px;height:6px;border-radius:50%;background:#10b981"></span>
+        SEOUL <span id="seoul">--:--:--</span>
       </div>
     </div>
   </div>
-</section>
 
-<!-- ============ FOOTER ============ -->
-<footer class="foot">
-  <div class="foot-in">
-    <div class="foot-logo"><img src="assets/logo/logo-black.png" alt="STUDIO (WXZ)"></div>
-    <p class="foot-motto serif">像工匠一样，把每一帧都打磨到无可挑剔。</p>
-    <p class="foot-cp">© 2026 ZHENG CANFENG · ALL FRAMES RESERVED</p>
-  </div>
-</footer>
+  <!-- ===== showcase ===== -->
+  <main class="showcase relative z-10" id="show">
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap" data-reveal>
+      <div class="filter-bar">
+        <span class="filter-ind" id="filterInd"></span>
+        <button class="filter-chip active" data-cat="all">全部<span class="cnt" id="cAll">0</span></button>
+        <button class="filter-chip" data-cat="motion">影像<span class="cnt" id="cMotion">0</span></button>
+        <button class="filter-chip" data-cat="biz">商业<span class="cnt" id="cBiz">0</span></button>
+        <button class="filter-chip" data-cat="design">设计<span class="cnt" id="cDesign">0</span></button>
+      </div>
+      <span class="mono" id="filterNote" style="font-size:11px;letter-spacing:.14em;color:rgba(255,255,255,.4)">SHOWING · ALL</span>
+    </div>
+    <div class="grid" id="grid"></div>
+  </main>
 
-<!-- ============ MODAL ============ -->
+  <!-- ===== partners ===== -->
+  <section class="partners relative z-10" id="partners">
+    <p class="kicker" data-reveal>合作品牌 · Trusted by thoughtful brands</p>
+    <div class="brand-grid" id="brandGrid"></div>
+  </section>
+
+  <!-- ===== about ===== -->
+  <section class="about relative z-10" id="about">
+    <div class="about-grid">
+      <div class="about-portrait liquid-glass" data-reveal>
+        <img src="assets/img/avatar.jpg" alt="郑灿峰 — 摄影师 · 导演">
+      </div>
+      <div class="about-copy" data-reveal>
+        <div class="eyebrow"><span style="width:6px;height:6px;border-radius:50%;background:#f59e0b"></span>
+          <span class="mono">ABOUT · 关于我</span></div>
+        <h2>慢一点，才能看得清楚。</h2>
+        <p class="body">
+          我是郑灿峰，摄影师与导演，常驻首尔。十三年来只做一件事：让品牌被看见，被记住。
+          从新世界免税店到爱茉莉太平洋，从三养到 MAKE UP FOR EVER —— 灯光、摄影、导演、后期，一个体系，全程把关。
+        </p>
+        <p class="about-motto">「匠心，就是把简单留给你，把复杂留给自己。」</p>
+        <div class="about-links">
+          <a class="icobtn liquid-glass" href="mailto:ro3eandcat@gmail.com">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+            ro3eandcat@gmail.com
+          </a>
+          <a class="icobtn liquid-glass" href="https://github.com/WXZSTUDIO" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.5 2 2 6.6 2 12.2c0 4.5 2.9 8.3 6.8 9.6.5.1.7-.2.7-.5v-1.7c-2.8.6-3.4-1.4-3.4-1.4-.4-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.6 2.4 1.1 3 .8.1-.7.4-1.1.6-1.4-2.2-.3-4.6-1.1-4.6-5 0-1.1.4-2 1-2.7-.1-.3-.4-1.3.1-2.7 0 0 .8-.3 2.7 1a9.4 9.4 0 0 1 5 0c1.9-1.3 2.7-1 2.7-1 .5 1.4.2 2.4.1 2.7.6.7 1 1.6 1 2.7 0 3.9-2.3 4.7-4.6 5 .4.3.7.9.7 1.9v2.8c0 .3.2.6.7.5A10.2 10.2 0 0 0 22 12.2C22 6.6 17.5 2 12 2z"/></svg>
+            GitHub
+          </a>
+          <button class="icobtn liquid-glass" id="wxCopy">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 11l18-7-7 18-2-7-9-4z"/></svg>
+            WECHAT · ICF304
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== final CTA with watermark ===== -->
+  <section class="c3-section relative z-10" id="contact">
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+      <filter id="c3-noise">
+        <feTurbulence type="fractalNoise" baseFrequency="0.5" numOctaves="2" stitchTiles="stitch" />
+        <feComponentTransfer><feFuncA type="linear" slope="0.075" /></feComponentTransfer>
+        <feComposite in2="SourceGraphic" operator="in" result="noise" />
+        <feBlend in="SourceGraphic" in2="noise" mode="overlay" />
+      </filter>
+    </defs></svg>
+    <div class="c3-watermark-container">
+      <div class="c3-watermark-main">
+        <span class="c3-watermark-line-1">让品牌</span>
+        <span class="c3-watermark-line-2">被记住</span>
+      </div>
+    </div>
+    <div class="c3-grid-single">
+      <div class="c3-card">
+        <div class="eyebrow" style="justify-content:center">
+          <span style="width:6px;height:6px;border-radius:50%;background:#00d2ff"></span>
+          <span class="mono">START A PROJECT</span>
+        </div>
+        <h3>挑一个项目，<br>我们聊聊。</h3>
+        <p>从企划到成片，一支团队全程把关。发一封邮件，我们 24 小时内回复。</p>
+        <div class="c3-card-actions">
+          <a class="apple-btn" href="mailto:ro3eandcat@gmail.com?subject=项目咨询">发邮件
+            <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M9 5l7 7-7 7"/></svg>
+          </a>
+          <a class="ghost-btn" href="#show" data-anchor>看作品</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== footer ===== -->
+  <footer class="foot relative z-10">
+    <div class="foot-in">
+      <img src="assets/logo/logo-white.png" alt="STUDIO (WXZ)">
+      <p class="foot-motto">像工匠一样，把每一帧都打磨到无可挑剔。</p>
+      <p class="foot-cp">© 2026 ZHENG CANFENG · ALL FRAMES RESERVED</p>
+    </div>
+  </footer>
+</div>
+
+<!-- ===== modal ===== -->
 <div class="modal" id="modal" role="dialog" aria-modal="true">
   <div class="modal-box" id="modalBox">
     <button class="modal-close" id="modalClose" aria-label="关闭"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
     <div class="modal-media" id="modalMedia"></div>
     <div class="modal-body">
-      <div class="modal-kicker"><span class="t" id="modalCat">WORK</span><span id="modalBrand">STUDIO (WXZ)</span></div>
+      <div class="modal-kicker"><span id="modalCat" style="color:#00d2ff">WORK</span><span id="modalBrand">STUDIO (WXZ)</span></div>
       <h3 class="modal-title" id="modalTitle"></h3>
       <div class="modal-meta" id="modalMeta"></div>
       <div class="modal-stats" id="modalStats"></div>
       <p class="modal-desc" id="modalDesc"></p>
       <div class="modal-actions">
-        <a class="m-btn dark" href="mailto:ro3eandcat@gmail.com?subject=项目咨询">✉ &nbsp;聊这个项目</a>
-        <button class="m-btn line" id="modalLike">♡ &nbsp;点赞</button>
+        <a class="apple-btn" href="mailto:ro3eandcat@gmail.com?subject=项目咨询">聊这个项目
+          <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M9 5l7 7-7 7"/></svg>
+        </a>
+        <button class="ghost-btn" id="modalLike">♡ 点赞</button>
       </div>
     </div>
   </div>
@@ -425,7 +483,6 @@ var F = function(n){return RAW + n + "_frame.jpg"};
 var V = function(n){return RAW + n + ".mp4"};
 var IMG = function(n){return RAW + n + ".jpg"};
 
-/* ---- real works from WXZSTUDIO/homepage ---- */
 var WORKS = [
   {id:"p03", img:F("v01"), video:V("v01"), title:"化解 FLAVO 系列 · Beauty Festa", brand:"化解 Hwahae", tag:"广告影像", likes:24300, saves:3120, desc:"化解（Hwahae）FLAVO 系列 Beauty Festa 广告影像 — 从产品质感到氛围节奏，全流程自有体系制作。", feat:true},
   {id:"p04", img:F("v02"), video:V("v02"), title:"Portré × Paul and Joe", brand:"Portré × Paul and Joe", tag:"广告影像", likes:18700, saves:2480},
@@ -462,7 +519,6 @@ var WORKS = [
 ];
 var byId = {}; WORKS.forEach(function(w){byId[w.id]=w});
 
-/* category from tag — Smartisan tag nav */
 function catOf(w){
   var t = w.tag||"";
   if(/花絮|婚礼|TVC|空间影像|TikTok/.test(t)) return "motion";
@@ -473,35 +529,35 @@ function catOf(w){
 WORKS.forEach(function(w){ w.cat = catOf(w); });
 
 var CAT_LABEL = {motion:"影像", biz:"商业", design:"设计"};
-var CAT_VAR  = {motion:"--blue", biz:"--red", design:"--yellow"};
+var CAT_COLOR = {motion:"#00d2ff", biz:"#f59e0b", design:"#10b981"};
 
-/* humanistic hover tips (easter eggs) */
 var TIPS = [
   "这件作品，值得你多停留三秒。",
-  "锤子还在打磨细节。",
-  "灵感不会自己排队，得来不易。",
   "好画面，是耐心熬出来的。",
-  "把复杂留给自己，把简单给你。",
   "每一帧，都经得起放大。",
+  "把复杂留给自己，把简单给你。",
   "慢一点，才能看得清楚。",
+  "灯光到位，情绪自然来。",
+  "别急，好东西值得等。",
   "匠心，就是多想一步。",
-  "别急，好东西值得等。"
+  "灵感不会自己排队。"
 ];
 var fmt = function(n){return n>=1000 ? (n/1000).toFixed(1).replace(/\.0$/,"")+"k" : String(n);};
 var esc = function(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;");};
 
-/* ================= Nine-grid ================= */
+/* ===== nine-grid ===== */
 var grid = document.getElementById("grid");
 WORKS.forEach(function(w, idx){
   var card = document.createElement("article");
-  card.className = "work-card";
+  card.className = "work-card liquid-glass";
   card.dataset.cat = w.cat;
   card.dataset.open = w.id;
-  card.style.setProperty("--cat", "var(" + CAT_VAR[w.cat] + ")");
-  var star = w.feat ? '<svg class="star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.7 1.4 6.8L12 17.8 5.9 21l1.4-6.8L2.2 9l6.9-.7z"/></svg>' : "";
+  card.style.setProperty("--cat", CAT_COLOR[w.cat]);
+  var star = w.feat ? '<svg class="wc-star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.7 1.4 6.8L12 17.8 5.9 21l1.4-6.8L2.2 9l6.9-.7z"/></svg>' : "";
   card.innerHTML =
     '<div class="work-thumb"><img src="'+w.img+'" alt="'+esc(w.title)+'" loading="lazy"></div>'+
-    '<span class="tag '+w.cat+'">'+CAT_LABEL[w.cat]+'</span>'+star+
+    '<div class="work-scrim"></div>'+
+    '<span class="wc-tag">'+CAT_LABEL[w.cat]+'</span>'+star+
     '<div class="work-base"><div class="work-title">'+esc(w.title)+'</div></div>'+
     '<div class="work-hover">'+
       '<div class="work-row"><span class="work-brand">'+esc(w.brand||"STUDIO (WXZ)")+'</span>'+
@@ -511,7 +567,7 @@ WORKS.forEach(function(w, idx){
   grid.appendChild(card);
 });
 
-/* ================= Filter (segmented control) ================= */
+/* ===== filter ===== */
 var counts = {all:WORKS.length, motion:0, biz:0, design:0};
 WORKS.forEach(function(w){ counts[w.cat]++; });
 document.getElementById("cAll").textContent = counts.all;
@@ -519,11 +575,10 @@ document.getElementById("cMotion").textContent = counts.motion;
 document.getElementById("cBiz").textContent = counts.biz;
 document.getElementById("cDesign").textContent = counts.design;
 
-var bar = document.getElementById("filterBar");
+var bar = document.querySelector(".filter-bar");
 var ind = document.getElementById("filterInd");
 var note = document.getElementById("filterNote");
 var chips = [].slice.call(bar.querySelectorAll(".filter-chip"));
-
 function moveInd(){
   var active = bar.querySelector(".filter-chip.active");
   if(!active) return;
@@ -532,42 +587,38 @@ function moveInd(){
 }
 function applyFilter(cat){
   [].slice.call(grid.children).forEach(function(c){
-    var show = (cat==="all" || c.dataset.cat===cat);
-    c.classList.toggle("hidden", !show);
+    c.classList.toggle("hidden", !(cat==="all" || c.dataset.cat===cat));
   });
   note.textContent = "SHOWING · " + (cat==="all" ? "ALL" : CAT_LABEL[cat].toUpperCase());
 }
 chips.forEach(function(ch){
   ch.addEventListener("click", function(){
     chips.forEach(function(c){c.classList.remove("active")});
-    ch.classList.add("active");
-    moveInd();
-    applyFilter(ch.dataset.cat);
+    ch.classList.add("active"); moveInd(); applyFilter(ch.dataset.cat);
   });
 });
 window.addEventListener("resize", moveInd);
 moveInd();
 
-/* ================= Partners · hairline grid ================= */
+/* ===== partners ===== */
 var LOGOS = [
-  ["assets/brands/shinsegae.svg","Shinsegae",0],
-  ["assets/brands/amorepacific.svg","Amorepacific",0],
-  ["assets/brands/buldak.png","Samyang Buldak",0],
-  ["assets/brands/hera.png","HERA",1],
-  ["assets/brands/iope.png","IOPE",0],
-  ["assets/brands/hy.png","HY",1],
-  ["assets/brands/libeya.png","Libeya",1],
-  ["assets/brands/harbin-metro.png","Harbin Metro",1],
-  ["assets/brands/highgogo.png","highgogo",1]
+  ["assets/brands/shinsegae.svg","Shinsegae"],
+  ["assets/brands/amorepacific.svg","Amorepacific"],
+  ["assets/brands/buldak.png","Samyang Buldak"],
+  ["assets/brands/hera.png","HERA"],
+  ["assets/brands/iope.png","IOPE"],
+  ["assets/brands/hy.png","HY"],
+  ["assets/brands/libeya.png","Libeya"],
+  ["assets/brands/harbin-metro.png","Harbin Metro"],
+  ["assets/brands/highgogo.png","highgogo"]
 ];
 var brandGrid = document.getElementById("brandGrid");
 LOGOS.forEach(function(L){
   var cell = document.createElement("div");
-  cell.className = "brand-cell" + (L[2] ? " dim" : "");
+  cell.className = "brand-cell liquid-glass";
   cell.innerHTML = '<img src="'+L[0]+'" alt="'+L[1]+'">';
   brandGrid.appendChild(cell);
 });
-/* live Seoul clock */
 (function(){
   var el = document.getElementById("seoul");
   function tick(){
@@ -577,7 +628,7 @@ LOGOS.forEach(function(L){
   tick(); setInterval(tick,1000);
 })();
 
-/* ================= Modal ================= */
+/* ===== modal ===== */
 var modal = document.getElementById("modal");
 function openModal(id){
   var w = byId[id]; if(!w) return;
@@ -585,10 +636,11 @@ function openModal(id){
   media.className = "modal-media";
   media.innerHTML = '<div class="modal-loading"><div class="spin"></div><div>正在把灵感装进盒子…</div></div>';
   document.getElementById("modalCat").textContent = (CAT_LABEL[w.cat]||"WORK").toUpperCase();
+  document.getElementById("modalCat").style.color = CAT_COLOR[w.cat];
   document.getElementById("modalBrand").textContent = w.brand || "STUDIO (WXZ)";
   document.getElementById("modalTitle").textContent = w.title;
-  var meta = '<span class="chip">'+esc(w.tag)+'</span><span class="chip">'+esc(w.brand||"STUDIO (WXZ)")+'</span><span class="chip">STUDIO (WXZ) 制作</span>';
-  document.getElementById("modalMeta").innerHTML = meta;
+  document.getElementById("modalMeta").innerHTML =
+    '<span class="chip">'+esc(w.tag)+'</span><span class="chip">'+esc(w.brand||"STUDIO (WXZ)")+'</span><span class="chip">STUDIO (WXZ) 制作</span>';
   var st = document.getElementById("modalStats");
   if(w.likes){
     st.style.display = "flex";
@@ -598,12 +650,11 @@ function openModal(id){
   document.getElementById("modalDesc").textContent = w.desc ||
     (w.brand||w.title) + " — " + w.tag + "项目，由 STUDIO (WXZ) 独立完成企划、拍摄与后期。";
   var lb = document.getElementById("modalLike");
-  lb.innerHTML = "♡ &nbsp;点赞"; lb.disabled = false; lb.style.opacity = "";
+  lb.textContent = "♡ 点赞"; lb.disabled = false; lb.style.opacity = "";
   modal.classList.add("open");
   document.body.style.overflow = "hidden";
   modal.scrollTop = 0;
   document.getElementById("modalClose").focus();
-  /* load media, swap in when ready */
   if(w.video){
     var v = document.createElement("video");
     v.src = w.video; v.poster = w.img; v.autoplay = true; v.muted = true; v.loop = true; v.playsInline = true; v.controls = true;
@@ -632,23 +683,21 @@ document.addEventListener("click", function(e){
 document.getElementById("modalClose").addEventListener("click", closeModal);
 document.addEventListener("keydown", function(e){ if(e.key==="Escape" && modal.classList.contains("open")) closeModal(); });
 document.getElementById("modalLike").addEventListener("click", function(){
-  var b = this; b.innerHTML = "♥ &nbsp;已点赞"; b.disabled = true; b.style.opacity = ".7";
+  var b = this; b.textContent = "♥ 已点赞"; b.disabled = true; b.style.opacity = ".7";
 });
-
-/* ================= WeChat copy (witty) ================= */
 var wx = document.getElementById("wxCopy");
 wx.addEventListener("click", function(){
   var done = function(){ var t=wx.innerHTML; wx.innerHTML = "已复制 ✓ 去找我玩吧"; setTimeout(function(){wx.innerHTML=t},1700); };
   if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText("icf304").then(done, done); } else { done(); }
 });
 
-/* ================= Smooth anchor (crisp) ================= */
+/* ===== smooth anchor ===== */
 function smoothTo(y){
   var startY = window.scrollY, dy = y - startY, t0 = null, dur = 620;
   function step(ts){
     if(t0===null) t0 = ts;
     var p = Math.min(1, (ts - t0)/dur);
-    var e = 1 - Math.pow(1-p, 3);   // easeOutCubic — precise, no drag
+    var e = 1 - Math.pow(1-p, 3);
     window.scrollTo(0, startY + dy*e);
     if(p<1) requestAnimationFrame(step);
   }
@@ -663,9 +712,7 @@ document.querySelectorAll("[data-anchor]").forEach(function(a){
     }
   });
 });
-/* active nav link on scroll */
 var navLinks = [].slice.call(document.querySelectorAll(".nav-links a"));
-var secIds = ["show","partners","about"];
 var navIO = new IntersectionObserver(function(es){
   es.forEach(function(en){
     if(en.isIntersecting){
@@ -673,42 +720,18 @@ var navIO = new IntersectionObserver(function(es){
     }
   });
 },{rootMargin:"-45% 0px -50% 0px"});
-secIds.forEach(function(id){ var s=document.getElementById(id); if(s) navIO.observe(s); });
+["show","partners","about","contact"].forEach(function(id){ var s=document.getElementById(id); if(s) navIO.observe(s); });
 
-/* ================= Reveal (crisp, staggered) ================= */
+/* ===== reveal ===== */
 var revIO = new IntersectionObserver(function(es){
   es.forEach(function(en){
-    if(en.isIntersecting){
-      var i = [].slice.call(document.querySelectorAll("[data-reveal]")).indexOf(en.target);
-      en.target.style.transitionDelay = Math.min(i,8)*0.05 + "s";
-      en.target.classList.add("in");
-      revIO.unobserve(en.target);
-    }
+    if(en.isIntersecting){ en.target.classList.add("in"); revIO.unobserve(en.target); }
   });
 },{threshold:.12, rootMargin:"0px 0px -6% 0px"});
 document.querySelectorAll("[data-reveal]").forEach(function(el){ revIO.observe(el); });
 
-/* ================= Nav shadow on scroll ================= */
 var topnav = document.getElementById("topnav");
-window.addEventListener("scroll", function(){
-  topnav.classList.toggle("scrolled", window.scrollY > 12);
-}, {passive:true});
-
-/* ================= Boot loader (poetic) ================= */
-(function(){
-  var boot = document.getElementById("boot");
-  if(window.matchMedia("(prefers-reduced-motion: reduce)").matches){ boot.classList.add("done"); return; }
-  var fill = document.getElementById("bootFill");
-  var tip = document.getElementById("bootTip");
-  var phrases = ["正在校准精密仪器…","锤子还在打磨细节…","灵感正在排队入场…","对齐每一个像素…"];
-  var p = 0, t = 0;
-  var iv = setInterval(function(){
-    p = Math.min(100, p + 6 + Math.random()*10);
-    fill.style.width = p + "%";
-    if(t < phrases.length-1 && p > (t+1)*25){ t++; tip.textContent = phrases[t]; }
-    if(p >= 100){ clearInterval(iv); setTimeout(function(){ boot.classList.add("done"); }, 260); }
-  }, 90);
-})();
+window.addEventListener("scroll", function(){ topnav.classList.toggle("scrolled", window.scrollY > 12); }, {passive:true});
 })();
 </script>
 </body>
