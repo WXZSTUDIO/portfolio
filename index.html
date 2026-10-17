@@ -142,6 +142,41 @@ section[id]{scroll-margin-top:72px}
   .tagbar::-webkit-scrollbar{display:none}
 }
 .count-note{font-size:11px;letter-spacing:.16em;color:var(--faint)}
+.tagbar + .tagbar{margin-top:10px}
+.wtagchip{font-size:11px;color:var(--faint);transition:color .3s var(--ease)}
+.wtagchip:hover{color:#111}
+.wtagchip.on{color:#111;font-weight:600}
+
+/* ---------- view switch ---------- */
+.viewbar{display:flex;align-items:center;gap:6px}
+.vchip{font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;
+  border:1px solid var(--line);border-radius:2px;padding:7px 12px;color:var(--faint);white-space:nowrap;
+  transition:border-color .3s var(--ease),background .3s var(--ease),color .3s var(--ease)}
+.vchip:hover{border-color:#111;color:#111}
+.vchip.active{background:#111;border-color:#111;color:#fff}
+.utilrow{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:18px;padding-top:14px;
+  border-top:1px solid var(--line)}
+.gbar{display:none;align-items:center;gap:7px;margin-left:auto}
+.gbar.on{display:flex}
+.gbar-label{font-size:11px;letter-spacing:.18em;color:var(--faint);margin-right:2px}
+.clearbtn{font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:600;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--faint);border-bottom:1px solid var(--line);padding-bottom:2px;
+  transition:color .3s var(--ease),border-color .3s var(--ease)}
+.clearbtn:hover{color:#111;border-color:#111}
+.clearbtn.off{opacity:.35;pointer-events:none}
+
+/* ---------- grouped by tag ---------- */
+.groups{margin-top:clamp(32px,4vw,48px)}
+.gsec{margin-top:clamp(44px,5vw,68px)}
+.gsec:first-child{margin-top:0}
+.gsec-head{display:flex;align-items:baseline;gap:12px;padding-bottom:12px;border-bottom:1px solid #111}
+.gsec-head h3{font-size:clamp(17px,2.2vw,24px);font-weight:700;letter-spacing:-.02em;color:var(--ink)}
+.gsec-head .gcnt{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--faint)}
+.gsec-head .gmore{margin-left:auto;font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:600;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--faint);transition:color .3s var(--ease)}
+.gsec-head .gmore:hover{color:#111}
+.gsec .grid{margin-top:clamp(20px,2.6vw,28px)}
+.empty{padding:clamp(56px,8vw,110px) 0;text-align:center;color:var(--faint);font-size:13px;letter-spacing:.08em}
 
 .grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(28px,4vw,44px) clamp(14px,2vw,24px);
   margin-top:clamp(32px,4vw,48px)}
@@ -369,15 +404,29 @@ section[id]{scroll-margin-top:72px}
           <p class="eyebrow mono">Selected Works</p>
           <h2 class="big-type" style="margin-top:16px">作品展馆</h2>
         </div>
-        <span class="count-note mono" id="filterNote">SHOWING · ALL</span>
+        <div class="viewbar" id="viewBar">
+          <button class="vchip active" data-view="grid">GRID 网格</button>
+          <button class="vchip" data-view="group">BY TAG 按标签</button>
+        </div>
       </div>
 
       <div class="filters" id="catBar" data-reveal style="transition-delay:.08s">
         <span class="f-ind" id="filterInd"></span>
       </div>
-      <div class="tagbar" id="tagBar" data-reveal style="transition-delay:.14s"></div>
+      <div class="tagbar" id="tagInd" data-reveal style="transition-delay:.12s"></div>
+      <div class="tagbar" id="tagFmt" data-reveal style="transition-delay:.16s"></div>
 
-      <div class="grid" id="grid"></div>
+      <div class="utilrow" data-reveal style="transition-delay:.2s">
+        <span class="count-note mono" id="filterNote">SHOWING · ALL</span>
+        <span class="gbar" id="groupBar">
+          <span class="gbar-label mono">GROUP BY</span>
+          <button class="vchip active" data-by="industry">行业</button>
+          <button class="vchip" data-by="format">形式</button>
+        </span>
+        <button class="clearbtn mono off" id="clearBtn">CLEAR ✕</button>
+      </div>
+
+      <div class="grid" id="works"></div>
     </div>
   </section>
 
@@ -474,8 +523,15 @@ var CATS = [
   {k:"brand", zh:"品牌设计",    en:"BRAND DESIGN"},
   {k:"ai",    zh:"AI 影像",     en:"AI FILM"}
 ];
-/* 标签（副维度，可多选）：行业 + 形式 */
-var TAGS = ["美妆","日化","食品饮料","母婴","健康食品","零售","时尚","K-POP","TVC","短视频","花絮","平面","线下活动","AI"];
+/* 标签（副维度，可多选）：行业 + 形式 两组 */
+var TAG_GROUPS = [
+  {k:"industry", label:"行业", tags:["美妆","日化","食品饮料","母婴","健康食品","零售","时尚","K-POP","婚礼"]},
+  {k:"format",   label:"形式", tags:["TVC","短视频","花絮","平面","线下活动","AI"]}
+];
+var ALL_TAGS = [];
+TAG_GROUPS.forEach(function(g){ g.tags.forEach(function(t){ if(ALL_TAGS.indexOf(t)<0) ALL_TAGS.push(t); }); });
+var TAG_GROUP = {};
+TAG_GROUPS.forEach(function(g){ g.tags.forEach(function(t){ TAG_GROUP[t] = g.k; }); });
 
 var WORKS = [
   {id:"p03", cat:"ad", tags:["美妆","TVC"], img:F("v01"), video:V("v01"), title:"化解 FLAVO 系列 · Beauty Festa", brand:"化解 Hwahae", tag:"广告影像", likes:24300, saves:3120, desc:"化解（Hwahae）FLAVO 系列 Beauty Festa 广告影像 — 从产品质感到氛围节奏，全流程自有体系制作。", feat:true},
@@ -493,9 +549,9 @@ var WORKS = [
   {id:"star4", cat:"live", tags:["美妆","K-POP","花絮"], img:F("star4"), title:"mooekiss × 金允植 · 花絮", brand:"mooekiss", tag:"幕后花絮", likes:18300, saves:2760},
   {id:"star5", cat:"ad", tags:["美妆","K-POP","TVC"], img:F("star5"), video:V("star5"), title:"MAKE UP FOR EVER × Joshua · 品牌大使影像", brand:"MAKE UP FOR EVER", tag:"TVC", likes:25400, saves:3980, desc:"MAKE UP FOR EVER 品牌大使影像，与 Joshua 合作 — 品牌级 TVC 与幕后双线制作。", feat:true},
   {id:"tvc1", cat:"ad", tags:["美妆","K-POP","TVC"], img:F("tvc1"), video:V("tvc1"), title:"mooekiss × 金允植 · 品牌影像", brand:"mooekiss", tag:"TVC"},
-  {id:"r01", cat:"live", tags:["花絮","线下活动"], img:F("r01"), video:V("r01"), title:"婚礼影像", brand:"WEDDING", tag:"婚礼", likes:5300, saves:640},
+  {id:"r01", cat:"live", tags:["婚礼","花絮","线下活动"], img:F("r01"), video:V("r01"), title:"婚礼影像", brand:"WEDDING", tag:"婚礼", likes:5300, saves:640},
   {id:"r02", cat:"prod", tags:["食品饮料","短视频"], img:F("r02"), video:V("r02"), title:"HY · 新品上市影像", brand:"HY", tag:"产品影像", likes:11600, saves:1480},
-  {id:"r03", cat:"social", tags:["短视频"], img:F("r03"), video:V("r03"), title:"Denps · TikTok 系列", brand:"Denps", tag:"TikTok", likes:34200, saves:5170, desc:"Denps TikTok 内容系列 — 34.2k 点赞、5.1k 收藏，社媒爆款方法论的一次完整落地。", feat:true},
+  {id:"r03", cat:"social", tags:["健康食品","短视频"], img:F("r03"), video:V("r03"), title:"Denps · TikTok 系列", brand:"Denps", tag:"TikTok", likes:34200, saves:5170, desc:"Denps TikTok 内容系列 — 34.2k 点赞、5.1k 收藏，社媒爆款方法论的一次完整落地。", feat:true},
   {id:"r04", cat:"ad", tags:["零售","短视频"], img:F("r04"), video:V("r04"), title:"新世界 × Hiker Ground", brand:"新世界 × Hiker Ground", tag:"品牌影像", likes:9100, saves:1080},
   {id:"r05", cat:"ad", tags:["零售","TVC"], img:F("r05"), video:V("r05"), title:"新世界免税店 · Seoul Moon", brand:"新世界免税店", tag:"品牌影像", likes:16800, saves:2240},
   {id:"r06", cat:"prod", tags:["美妆","短视频"], img:F("r06"), video:V("r06"), title:"Portré · 纯净版成片", brand:"Portré", tag:"产品影像", likes:13500, saves:1820},
@@ -517,62 +573,82 @@ var CAT_MAP = {}; CATS.forEach(function(c){CAT_MAP[c.k] = c});
 var fmt = function(n){return n>=1000 ? (n/1000).toFixed(1).replace(/\.0$/,"")+"k" : String(n);};
 var esc = function(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;");};
 
-/* ===== grid ===== */
-var grid = document.getElementById("grid");
-WORKS.forEach(function(w){
+/* ===== cards ===== */
+var works = document.getElementById("works");
+
+function makeCard(w){
   var card = document.createElement("article");
   card.className = "wcard";
   card.dataset.cat = w.cat;
   card.dataset.tags = w.tags.join("|");
   card.dataset.open = w.id;
   var star = w.feat ? '<svg class="wstar" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.7 1.4 6.8L12 17.8 5.9 21l1.4-6.8L2.2 9l6.9-.7z"/></svg>' : "";
+  var chips = (w.tags||[]).map(function(t){
+    return '<button class="wtagchip'+(state.tags.indexOf(t)>=0 ? " on" : "")+'" data-tag="'+esc(t)+'">#'+esc(t)+'</button>';
+  }).join(" ");
   card.innerHTML =
     '<div class="wthumb"><img src="'+w.img+'" alt="'+esc(w.title)+'" loading="lazy">'+star+
       '<span class="wview mono">VIEW</span></div>'+
     '<div class="wcap">'+
       '<span class="wtag">'+esc(CAT_MAP[w.cat].zh)+'</span>'+
       '<h3>'+esc(w.title)+'</h3>'+
-      (w.tags.length?'<div class="wtags mono">'+w.tags.map(esc).join(" · ")+'</div>':"")+
+      (chips ? '<div class="wtags mono">'+chips+'</div>' : "")+
       (w.likes?'<div class="wstat mono">'+fmt(w.likes)+' LIKES · '+fmt(w.saves)+' SAVES</div>':"")+
     '</div>';
-  grid.appendChild(card);
-});
-
-/* ===== filter: 分类 × 标签 ===== */
-var catBar = document.getElementById("catBar");
-var tagBar = document.getElementById("tagBar");
-var ind = document.getElementById("filterInd");
-var note = document.getElementById("filterNote");
-var state = {cat:"all", tag:"all"};
-
-function catCount(k){ return k==="all" ? WORKS.length : WORKS.filter(function(w){return w.cat===k}).length; }
-function tagCount(t, cat){
-  return WORKS.filter(function(w){
-    return (cat==="all" || w.cat===cat) && w.tags.indexOf(t) >= 0;
-  }).length;
+  return card;
 }
 
+/* ===== filter: 分类 × 标签(多选) × 视图 ===== */
+var catBar = document.getElementById("catBar");
+var tagIndEl = document.getElementById("tagInd");
+var tagFmtEl = document.getElementById("tagFmt");
+var ind = document.getElementById("filterInd");
+var note = document.getElementById("filterNote");
+var groupBar = document.getElementById("groupBar");
+var clearBtn = document.getElementById("clearBtn");
+var state = {cat:"all", tags:[], view:"grid", by:"industry"};
+
+function catCount(k){ return k==="all" ? WORKS.length : WORKS.filter(function(w){return w.cat===k}).length; }
+function tagCount(t){
+  return WORKS.filter(function(w){
+    return (state.cat==="all" || w.cat===state.cat) && w.tags.indexOf(t) >= 0;
+  }).length;
+}
+function match(w){
+  var okCat = state.cat==="all" || w.cat===state.cat;
+  var okTag = !state.tags.length || state.tags.some(function(t){ return w.tags.indexOf(t) >= 0; });
+  return okCat && okTag;
+}
+
+/* chips — 分类（主维度） */
 CATS.forEach(function(c){
   var b = document.createElement("button");
-  b.className = "fchip" + (c.k==="all" ? " active" : "");
+  b.className = "fchip";
   b.dataset.cat = c.k;
   b.innerHTML = c.zh + '<span class="cnt">' + catCount(c.k) + '</span>';
   catBar.appendChild(b);
 });
-var tagLabel = document.createElement("span");
-tagLabel.className = "tagbar-label mono";
-tagLabel.textContent = "TAGS";
-tagBar.appendChild(tagLabel);
-TAGS.forEach(function(t){
-  var b = document.createElement("button");
-  b.className = "tagchip" + (t===state.tag ? " active" : "");
-  b.dataset.tag = t;
-  b.innerHTML = t + '<span class="cnt"></span>';
-  tagBar.appendChild(b);
-});
+/* chips — 标签（行业 / 形式 两组，可多选） */
+function buildTags(el, g){
+  var lab = document.createElement("span");
+  lab.className = "tagbar-label mono";
+  lab.textContent = g.k==="industry" ? "INDUSTRY 行业" : "FORMAT 形式";
+  el.appendChild(lab);
+  g.tags.forEach(function(t){
+    var b = document.createElement("button");
+    b.className = "tagchip";
+    b.dataset.tag = t;
+    b.innerHTML = t + '<span class="cnt"></span>';
+    el.appendChild(b);
+  });
+}
+buildTags(tagIndEl, TAG_GROUPS[0]);
+buildTags(tagFmtEl, TAG_GROUPS[1]);
 
-var catChips = [].slice.call(catBar.querySelectorAll(".fchip"));
-var tagChips = [].slice.call(tagBar.querySelectorAll(".tagchip"));
+var catChips  = [].slice.call(catBar.querySelectorAll(".fchip"));
+var tagChips  = [].slice.call(document.querySelectorAll(".tagchip"));
+var viewChips = [].slice.call(document.querySelectorAll("#viewBar .vchip"));
+var byChips   = [].slice.call(groupBar.querySelectorAll(".vchip"));
 
 function moveInd(){
   var active = catBar.querySelector(".fchip.active");
@@ -582,48 +658,123 @@ function moveInd(){
 }
 function refreshTagCounts(){
   tagChips.forEach(function(ch){
-    var n = tagCount(ch.dataset.tag, state.cat);
+    var n = tagCount(ch.dataset.tag);
     ch.querySelector(".cnt").textContent = n;
     ch.style.display = n ? "" : "none";
   });
 }
-function applyFilter(){
-  var shown = 0;
-  [].slice.call(grid.children).forEach(function(c){
-    var okCat = state.cat==="all" || c.dataset.cat===state.cat;
-    var okTag = state.tag==="all" || (c.dataset.tags||"").split("|").indexOf(state.tag) >= 0;
-    var ok = okCat && okTag;
-    c.classList.toggle("hidden", !ok);
-    if(ok) shown++;
-  });
-  note.textContent = "SHOWING · " + shown + " / " + WORKS.length +
-    (state.tag==="all" ? "" : " · #" + state.tag);
+function syncChips(){
+  catChips.forEach(function(c){ c.classList.toggle("active", c.dataset.cat===state.cat); });
+  tagChips.forEach(function(c){ c.classList.toggle("active", state.tags.indexOf(c.dataset.tag) >= 0); });
+  viewChips.forEach(function(c){ c.classList.toggle("active", c.dataset.view===state.view); });
+  byChips.forEach(function(c){ c.classList.toggle("active", c.dataset.by===state.by); });
+  groupBar.classList.toggle("on", state.view==="group");
+  clearBtn.classList.toggle("off", state.cat==="all" && !state.tags.length);
+  refreshTagCounts();
+  moveInd();
 }
-catChips.forEach(function(ch){
-  ch.addEventListener("click", function(){
-    catChips.forEach(function(c){c.classList.remove("active")});
-    ch.classList.add("active");
-    state.cat = ch.dataset.cat;
-    moveInd(); refreshTagCounts();
-    // 当前标签在新分类下不存在时自动回到全部
-    if(state.tag!=="all" && tagCount(state.tag, state.cat)===0){
-      state.tag = "all";
-      tagChips.forEach(function(t){t.classList.toggle("active", t.dataset.tag==="all")});
-    }
-    applyFilter();
+
+/* ===== render: 网格 / 按标签分组 ===== */
+function groupSection(title, items){
+  var sec = document.createElement("section");
+  sec.className = "gsec";
+  var head = document.createElement("div");
+  head.className = "gsec-head";
+  head.innerHTML = '<h3>'+esc(title)+'</h3><span class="gcnt mono">'+items.length+' WORKS</span>' +
+    (ALL_TAGS.indexOf(title) >= 0 ? '<button class="gmore" data-only="'+esc(title)+'">只看这个 →</button>' : "");
+  var g = document.createElement("div");
+  g.className = "grid";
+  items.forEach(function(w){ g.appendChild(makeCard(w)); });
+  sec.appendChild(head);
+  sec.appendChild(g);
+  return sec;
+}
+function render(){
+  var list = WORKS.filter(match);
+  works.innerHTML = "";
+  note.textContent = "SHOWING · " + list.length + " / " + WORKS.length +
+    (state.tags.length ? " · #" + state.tags.join(" #") : "");
+  if(!list.length){
+    works.className = "";
+    var e = document.createElement("div");
+    e.className = "empty";
+    e.textContent = "这个组合下还没有作品 —— 点 CLEAR ✕ 看全部。";
+    works.appendChild(e);
+    return;
+  }
+  if(state.view === "grid"){
+    works.className = "grid";
+    list.forEach(function(w){ works.appendChild(makeCard(w)); });
+    return;
+  }
+  works.className = "groups";
+  var g = TAG_GROUPS.filter(function(x){ return x.k === state.by; })[0];
+  g.tags.forEach(function(t){
+    var items = list.filter(function(w){ return w.tags.indexOf(t) >= 0; });
+    if(!items.length) return;
+    works.appendChild(groupSection(t, items));
   });
+  var rest = list.filter(function(w){
+    return !w.tags.some(function(t){ return TAG_GROUP[t] === state.by; });
+  });
+  if(rest.length) works.appendChild(groupSection("其他", rest));
+}
+function toggleTag(t){
+  var i = state.tags.indexOf(t);
+  if(i >= 0) state.tags.splice(i, 1); else state.tags.push(t);
+  commit();
+}
+function commit(scroll){
+  syncChips(); render(); updateUrl();
+  if(scroll){
+    var s = document.getElementById("show");
+    if(s) smoothTo(s.getBoundingClientRect().top + window.scrollY - 64);
+  }
+}
+
+/* ===== URL state：可分享、刷新保持 ===== */
+function updateUrl(){
+  try{
+    var q = new URLSearchParams();
+    if(state.cat !== "all") q.set("cat", state.cat);
+    if(state.tags.length) q.set("tags", state.tags.join(","));
+    if(state.view !== "grid") q.set("view", state.view);
+    if(state.by !== "industry") q.set("by", state.by);
+    var s = q.toString();
+    history.replaceState(null, "", s ? (location.pathname + "?" + s) : location.pathname);
+  }catch(e){}
+}
+function readUrl(){
+  try{
+    var q = new URLSearchParams(location.search);
+    var c = q.get("cat"); if(c && CAT_MAP[c]) state.cat = c;
+    var tg = q.get("tags");
+    if(tg) state.tags = tg.split(",").filter(function(t){ return ALL_TAGS.indexOf(t) >= 0; });
+    var v = q.get("view"); if(v === "group" || v === "grid") state.view = v;
+    var b = q.get("by");   if(b === "industry" || b === "format") state.by = b;
+  }catch(e){}
+}
+
+/* ===== events ===== */
+catChips.forEach(function(ch){
+  ch.addEventListener("click", function(){ state.cat = ch.dataset.cat; commit(); });
 });
 tagChips.forEach(function(ch){
-  ch.addEventListener("click", function(){
-    if(state.tag === ch.dataset.tag){ state.tag = "all"; }
-    else { state.tag = ch.dataset.tag; }
-    tagChips.forEach(function(t){t.classList.toggle("active", t.dataset.tag===state.tag)});
-    applyFilter();
-  });
+  ch.addEventListener("click", function(){ toggleTag(ch.dataset.tag); });
+});
+viewChips.forEach(function(ch){
+  ch.addEventListener("click", function(){ state.view = ch.dataset.view; commit(); });
+});
+byChips.forEach(function(ch){
+  ch.addEventListener("click", function(){ state.by = ch.dataset.by; commit(); });
+});
+clearBtn.addEventListener("click", function(){
+  state.cat = "all"; state.tags = [];
+  commit();
 });
 window.addEventListener("resize", moveInd);
 window.addEventListener("load", moveInd);
-moveInd(); refreshTagCounts(); applyFilter();
+readUrl(); syncChips(); render();
 
 /* ===== partners ===== */
 var LOGOS = [
@@ -702,6 +853,14 @@ function closeModal(){
   document.body.style.overflow = "";
 }
 document.addEventListener("click", function(e){
+  var tg = e.target.closest ? e.target.closest(".wtagchip") : null;
+  if(tg){ toggleTag(tg.getAttribute("data-tag")); return; }
+  var only = e.target.closest ? e.target.closest("[data-only]") : null;
+  if(only){
+    var tt = only.getAttribute("data-only");
+    if(ALL_TAGS.indexOf(tt) >= 0){ state.tags = [tt]; state.view = "grid"; commit(true); }
+    return;
+  }
   var t = e.target.closest ? e.target.closest("[data-open]") : null;
   if(t){ openModal(t.getAttribute("data-open")); return; }
   if(e.target === modal) closeModal();
